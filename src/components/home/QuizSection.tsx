@@ -24,7 +24,7 @@ import {
   ArrowRight,
   Globe,
 } from "lucide-react";
-import Reveal from "./Reveal";
+import Reveal from "../Reveal";
 
 const WHATSAPP_NUMBER = "972500000000";
 
@@ -49,37 +49,37 @@ const RESULTS = {
     philosophy: {
       title: "להבין לפני לעשות",
       actions: [
-        "עשרה דקות קריאה על טעמי המצוות — בשפה מודרנית.",
-        "לשאול שאלה אחת אמיתית, בלי לחפש תשובה מיידית.",
-        "שיחה פתוחה עם מתחזקים על מה שמעסיק אותך.",
+        "קריאת 5 דקות ביום על משמעות המצוות או היהדות.",
+        "לימוד מושג אחד ביהדות, בלי לקבל עלייך שום התחייבות.",
+        "לשאול שאלה אחת שעניינה אותך ולא מצאת לה תשובה.",
       ],
     },
     creation: {
-      title: "ההתחלה של הכל",
+      title: "איך הכל התחיל",
       actions: [
-        "להאזין לפודקאסט קצר או לצפות בסרטון בנושא בריאת העולם.",
-        "לשאול רב או מלווה רוחני שאלות על איך זה מסתדר עם המדע.",
-        "להרשות לעצמך לחקור ולחפש תשובות לשאלות הגדולות באמת.",
+        "לקרוא על איך העולם נברא ממה הכל התחיל.",
+        "להבין את המשמעות של בריאת העולם בראי המדע והתורה.",
+        "לחקור את הנושא לעומק בלי לחץ ובלי שיפוטיות."
       ],
     },
     general: {
-      title: "הצעד הקטן שלך — להתחיל מסקרנות",
+      title: "סקרנות כללית — להתחיל בלי התחייבות",
       actions: [
-        "לבחור נושא אחד שמעניין אותך ולצלול בו לעומק.",
-        "עשר דקות ביום של תוכן בגובה העיניים.",
-        "שיחה אחת פתוחה עם מתחזקים — בלי מחויבות.",
+        "לקרוא סיפור אחד על אנשים שעשו דרך דומה.",
+        "לדבר 5 דקות ביום עם ה' בשפה שלך.",
+        "לעשות מעשה חסד קטן אחד ביום.",
       ],
     },
   },
   level: {
-    zero: "מתחילים מאפס? מעולה. אין מה לפספס — יש רק מה לגלות, ואתם קובעים את הקצב.",
-    some: "אתם מכירים קצת מהבית. עכשיו הזמן לתת לזה מקום משלכם, במונחים שלכם.",
-    steps: "אתם כבר עושים צעדים קטנים. נשאר רק להמשיך — בדיוק באותו קצב שנוח לכם.",
+    zero: "מתחיל מאפס? מעולה. אף אחד לא נולד יודע, והצעד הראשון הוא תמיד הכי חשוב.",
+    some: "יש לך קצת ידע ורקע, זה מצוין! אפשר לבנות על זה לאט לאט.",
+    steps: "כבר התחלת לעשות צעדים, וזה מדהים. בוא נחשוב איך אפשר להוסיף עוד צעד קטן.",
   },
   fear: {
-    say: 'החשש מ"מה יגידו" הוא הכי נפוץ, וזה מובן. אתם לא חייבים להצהיר על כלום — צעדים קטנים לא רואים מבחוץ.',
-    knowledge: "חוסר ידע הוא לא בעיה, הוא בדיוק הסיבה שמתחזקים קיים. שואלים, מקבלים תשובה, בלי מבחנים ובלי בושה.",
-    hard: "זה לא קשה מדי — זה רק נראה ככה מהצד. כל צעד הוא בגודל שאתם בוחרים, ותמיד אפשר לעצור.",
+    say: 'הפחד מ"מה יגידו" הוא הכי טבעי בעולם. אתה לא חייב לשתף אף אחד מיד. עשה צעדים קטנים בשקט שלך.',
+    knowledge: "חוסר ידע יכול להיות מתסכל, אבל זה גם אומר שיש המון מה לגלות. נתחיל לאט.",
+    hard: "הקושי הוא חלק מהדרך. לא צריך להצליח בהכל מיד, ומותר מדי פעם גם ליפול. העיקר להמשיך.",
   },
 };
 
@@ -87,7 +87,7 @@ type Interest = keyof typeof RESULTS.interest | null;
 type Level = keyof typeof RESULTS.level | null;
 type Fear = keyof typeof RESULTS.fear | null;
 
-export default function Hero() {
+export default function QuizSection() {
   const [step, setStep] = useState(1);
   const [interest, setInterest] = useState<Interest>(null);
   const [level, setLevel] = useState<Level>(null);
@@ -119,80 +119,26 @@ export default function Hero() {
   };
 
   const resultInterest = interest ? RESULTS.interest[interest] : RESULTS.interest.general;
-  const whatsappMsg = `היי, מילאתי את השאלון באתר "מתחזקים".
-מעניין אותי: ${resultInterest.title}.
-אשמח לשמוע על מתחזקים.`;
+  const whatsappMsg = `שלום, השלמתי את השאלון באתר "מתחזקים".\nהנושא שלי: ${resultInterest.title}.\nאשמח לייעוץ.`;
 
   return (
-    <section className="relative overflow-hidden" id="top">
-      <div className="grid-bg"></div>
+    <section className="relative overflow-hidden py-16 bg-slate-50/50 border-t border-slate-200/50" id="quiz-section">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <Reveal className="text-center mb-10 max-w-2xl mx-auto">
+          <span className="inline-flex items-center gap-2 rounded-full border border-sky-200 bg-white px-3 py-1 text-[12px] font-medium text-sky-700">
+            בוא נגלה מאיפה מתחילים
+          </span>
+          <h2 className="t-display mt-4 text-3xl text-slate-900 sm:text-4xl">מה הכי מסקרן אותך כרגע?</h2>
+          <p className="mt-3 text-[15px] text-slate-500">
+            ענה על 3 שאלות קצרות וקבל הצעה לצעדים קטנים שמתאימים בדיוק לך.
+          </p>
+        </Reveal>
 
-      <div className="orb h-[500px] w-[500px] -top-32 -right-40 bg-sky-200/60"></div>
-      <div className="orb h-[400px] w-[400px] top-40 -left-32 bg-indigo-200/50"></div>
-
-      <div className="relative mx-auto max-w-7xl px-4 pt-16 pb-20 sm:px-6 sm:pt-24 lg:px-8 lg:pt-28">
-        <div className="mx-auto max-w-4xl text-center">
-          <Reveal>
-            <span className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/70 px-3 py-1 text-[12px] font-medium text-slate-600 shadow-xs backdrop-blur">
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="absolute inline-flex h-full w-full animate-pulse-soft rounded-full bg-sky-400"></span>
-                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-sky-500"></span>
-              </span>
-              כאן בשבילך — בלי לחץ, בלי שיפוטיות
-            </span>
-          </Reveal>
-
-          <Reveal delay={100}>
-            <h1 className="t-display mt-7 text-4xl text-slate-900 sm:text-6xl lg:text-[4.5rem]">
-              מתקרבים בקצב שלך.
-              <span className="mt-2 block gradient-text">
-                בלי לחץ. בלי שיפוטיות.
-              </span>
-            </h1>
-          </Reveal>
-
-          <Reveal delay={200}>
-            <p className="t-body mx-auto mt-7 max-w-xl text-lg leading-relaxed text-slate-600 sm:text-xl">
-              צעדים ראשונים, מדריכים בגובה העיניים וליווי אישי דיסקרטי — בדיוק
-              במידה שנוחה לך.
-            </p>
-          </Reveal>
-
-          <Reveal delay={300} className="mt-9 flex flex-wrap items-center justify-center gap-3">
-            <a
-              href="#quizAnchor"
-              className="btn-primary inline-flex items-center gap-2 rounded-xl px-6 py-3.5 text-sm font-semibold"
-            >
-              בואו נמצא את הצעד שלך
-              <ArrowDown className="h-4 w-4" />
-            </a>
-            <a
-              href="#guides"
-              className="btn-ghost inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-6 py-3.5 text-sm font-medium text-slate-700"
-            >
-              לגלוש ולחקור לבד
-            </a>
-          </Reveal>
-
-          <Reveal delay={400} className="mt-9 flex flex-wrap items-center justify-center gap-x-7 gap-y-3 text-[12.5px] font-medium text-slate-500">
-            <span className="inline-flex items-center gap-1.5">
-              <Lock className="h-3.5 w-3.5 text-sky-500" /> דיסקרטי לחלוטין
-            </span>
-            <span className="inline-flex items-center gap-1.5">
-              <Hand className="h-3.5 w-3.5 text-sky-500" /> בלי התחייבות
-            </span>
-            <span className="inline-flex items-center gap-1.5">
-              <Sparkles className="h-3.5 w-3.5 text-sky-500" /> בחינם, תמיד
-            </span>
-          </Reveal>
-        </div>
-
-        {/* QUIZ */}
-        <Reveal delay={500} className="scroll-mt-32 mx-auto mt-16 max-w-2xl">
+        <Reveal delay={200} className="scroll-mt-32 mx-auto max-w-2xl">
           <div
             id="quizAnchor"
             ref={quizAnchorRef}
-            className="relative rounded-2xl border border-slate-200 bg-white p-6 shadow-2xl shadow-slate-900/5 sm:p-8"
+            className="relative rounded-3xl border border-slate-200 bg-white p-6 shadow-xl shadow-slate-200/50 sm:p-8"
           >
             {/* Stepper */}
             <div className="mb-7 flex items-center gap-2.5">
@@ -212,10 +158,10 @@ export default function Hero() {
               {step === 1 && (
                 <div className="animate-in fade-in slide-in-from-bottom-3 duration-500">
                   <h2 className="t-title text-lg text-slate-900 sm:text-xl">
-                    מה הכי מסקרן אותך כרגע?
+                    מה מכל הדברים הבאים מסקרן אותך עכשיו?
                   </h2>
                   <p className="mt-1.5 text-[13.5px] text-slate-500">
-                    אין תשובה נכונה — רק מה שמדבר אליך עכשיו.
+                    זה יעזור לנו להמליץ לך על כיוון התחלה.
                   </p>
 
                   <div className="mt-5 grid gap-2.5 sm:grid-cols-2">
@@ -227,12 +173,12 @@ export default function Hero() {
                       <span className="opt-icon">
                         <MoonStar className="h-4.5 w-4.5" />
                       </span>
-                      <span className="flex-1">
+                      <span className="flex-1 text-right">
                         <span className="block text-[14px] font-semibold text-slate-800">
-                          השקט של השבת
+                          שבת ומנוחה
                         </span>
                         <span className="mt-0.5 block text-[12px] text-slate-500">
-                          נרות, קידוש, שעה בלי מסכים
+                          שקט, ניתוק, משפחה, הדלקת נרות
                         </span>
                       </span>
                     </button>
@@ -245,12 +191,12 @@ export default function Hero() {
                       <span className="opt-icon">
                         <HandHeart className="h-4.5 w-4.5" />
                       </span>
-                      <span className="flex-1">
+                      <span className="flex-1 text-right">
                         <span className="block text-[14px] font-semibold text-slate-800">
-                          מצוות מעשיות
+                          מצוות ומעשים
                         </span>
                         <span className="mt-0.5 block text-[12px] text-slate-500">
-                          תפילין, ברכות, קריאת שמע
+                          תפילין, ברכות, תפילה קצרה
                         </span>
                       </span>
                     </button>
@@ -263,12 +209,12 @@ export default function Hero() {
                       <span className="opt-icon">
                         <Brain className="h-4.5 w-4.5" />
                       </span>
-                      <span className="flex-1">
+                      <span className="flex-1 text-right">
                         <span className="block text-[14px] font-semibold text-slate-800">
-                          פילוסופיה ומחשבה
+                          אמונה ומחשבה
                         </span>
                         <span className="mt-0.5 block text-[12px] text-slate-500">
-                          המשמעות שמאחורי המעשה
+                          המשמעות שמאחורי הדברים
                         </span>
                       </span>
                     </button>
@@ -281,12 +227,12 @@ export default function Hero() {
                       <span className="opt-icon">
                         <Globe className="h-4.5 w-4.5" />
                       </span>
-                      <span className="flex-1">
+                      <span className="flex-1 text-right">
                         <span className="block text-[14px] font-semibold text-slate-800">
                           איך הכל התחיל
                         </span>
                         <span className="mt-0.5 block text-[12px] text-slate-500">
-                          לחקור איך העולם נברא ממה הכל התחיל
+                          בריאת העולם והמדע
                         </span>
                       </span>
                     </button>
@@ -294,17 +240,17 @@ export default function Hero() {
                     <button
                       type="button"
                       onClick={() => handleSelect("interest", "general")}
-                      className={`opt ${interest === "general" ? "selected" : ""}`}
+                      className={`opt ${interest === "general" ? "selected" : ""} sm:col-span-2`}
                     >
                       <span className="opt-icon">
                         <Compass className="h-4.5 w-4.5" />
                       </span>
-                      <span className="flex-1">
+                      <span className="flex-1 text-right">
                         <span className="block text-[14px] font-semibold text-slate-800">
-                          סקרנות כללית
+                          עדיין לא בטוח / סקרנות כללית
                         </span>
                         <span className="mt-0.5 block text-[12px] text-slate-500">
-                          עדיין לא בטוח — רק בא לגלות
+                          רוצה רק להציץ, בלי מחויבות
                         </span>
                       </span>
                     </button>
@@ -316,10 +262,10 @@ export default function Hero() {
               {step === 2 && (
                 <div className="animate-in fade-in slide-in-from-bottom-3 duration-500">
                   <h2 className="t-title text-lg text-slate-900 sm:text-xl">
-                    איפה אתה מרגיש שאתה אוחז היום?
+                    איפה אתה מרגיש שאתה נמצא היום?
                   </h2>
                   <p className="mt-1.5 text-[13.5px] text-slate-500">
-                    כל נקודת התחלה היא נקודה טובה.
+                    אל תחשוב על זה יותר מדי, בחר מה שמרגיש נכון.
                   </p>
 
                   <div className="mt-5 grid gap-2.5">
@@ -331,12 +277,12 @@ export default function Hero() {
                       <span className="opt-icon">
                         <Sprout className="h-4.5 w-4.5" />
                       </span>
-                      <span className="flex-1">
+                      <span className="flex-1 text-right">
                         <span className="block text-[14px] font-semibold text-slate-800">
                           מתחיל מאפס
                         </span>
                         <span className="mt-0.5 block text-[12px] text-slate-500">
-                          הכול חדש — וזה בסדר
+                          לא יודע כלום, מחפש את הצעד הראשון
                         </span>
                       </span>
                     </button>
@@ -349,12 +295,12 @@ export default function Hero() {
                       <span className="opt-icon">
                         <Home className="h-4.5 w-4.5" />
                       </span>
-                      <span className="flex-1">
+                      <span className="flex-1 text-right">
                         <span className="block text-[14px] font-semibold text-slate-800">
-                          מכיר קצת מהבית
+                          יש לי רקע בסיסי
                         </span>
                         <span className="mt-0.5 block text-[12px] text-slate-500">
-                          יש זיכרונות, יש סקרנות
+                          מכיר קצת, אבל רוצה להתחזק
                         </span>
                       </span>
                     </button>
@@ -367,12 +313,12 @@ export default function Hero() {
                       <span className="opt-icon">
                         <Footprints className="h-4.5 w-4.5" />
                       </span>
-                      <span className="flex-1">
+                      <span className="flex-1 text-right">
                         <span className="block text-[14px] font-semibold text-slate-800">
-                          עושה צעדים קטנים
+                          כבר עושה צעדים בשטח
                         </span>
                         <span className="mt-0.5 block text-[12px] text-slate-500">
-                          כבר בדרך, רוצה להמשיך
+                          שומר דברים בסיסיים, מחפש להתקדם
                         </span>
                       </span>
                     </button>
@@ -384,10 +330,10 @@ export default function Hero() {
               {step === 3 && (
                 <div className="animate-in fade-in slide-in-from-bottom-3 duration-500">
                   <h2 className="t-title text-lg text-slate-900 sm:text-xl">
-                    מה החשש המרכזי שלך?
+                    מה הפחד או האתגר הכי גדול שלך כרגע?
                   </h2>
                   <p className="mt-1.5 text-[13.5px] text-slate-500">
-                    אנחנו שואלים כי זה בדיוק מה שאנחנו יודעים ללוות.
+                    לכולנו יש פחדים. זה בסדר גמור. מה עוצר אותך?
                   </p>
 
                   <div className="mt-5 grid gap-2.5">
@@ -399,12 +345,12 @@ export default function Hero() {
                       <span className="opt-icon">
                         <Eye className="h-4.5 w-4.5" />
                       </span>
-                      <span className="flex-1">
+                      <span className="flex-1 text-right">
                         <span className="block text-[14px] font-semibold text-slate-800">
-                          "מה יגידו"
+                          מה המשפחה והחברים יגידו
                         </span>
                         <span className="mt-0.5 block text-[12px] text-slate-500">
-                          המשפחה, החברים, הסביבה
+                          פחד מסביבה שיפוטית או חוסר הבנה
                         </span>
                       </span>
                     </button>
@@ -417,12 +363,12 @@ export default function Hero() {
                       <span className="opt-icon">
                         <HelpCircle className="h-4.5 w-4.5" />
                       </span>
-                      <span className="flex-1">
+                      <span className="flex-1 text-right">
                         <span className="block text-[14px] font-semibold text-slate-800">
-                          חוסר ידע
+                          חוסר ידע והבנה
                         </span>
                         <span className="mt-0.5 block text-[12px] text-slate-500">
-                          לא יודע מה לעשות, איך ומתי
+                          מרגיש שאני לא יודע איך עושים דברים נכון
                         </span>
                       </span>
                     </button>
@@ -435,12 +381,12 @@ export default function Hero() {
                       <span className="opt-icon">
                         <Mountain className="h-4.5 w-4.5" />
                       </span>
-                      <span className="flex-1">
+                      <span className="flex-1 text-right">
                         <span className="block text-[14px] font-semibold text-slate-800">
-                          פחד שזה קשה מדי
+                          שזה פשוט יהיה קשה מדי
                         </span>
                         <span className="mt-0.5 block text-[12px] text-slate-500">
-                          שאצטרך לוותר על מי שאני
+                          חשש שאשבר בדרך או לא אצליח להתמיד
                         </span>
                       </span>
                     </button>
@@ -454,7 +400,7 @@ export default function Hero() {
                   <div className="text-center">
                     <span className="inline-flex items-center gap-1.5 rounded-full bg-sky-50 px-2.5 py-1 text-[11px] font-semibold text-sky-700">
                       <Sparkles className="h-3 w-3" />
-                      הצעד שלך לשבוע הזה
+                      הנה הצעד הראשון שלך
                     </span>
                     <h2 className="t-title mt-4 text-xl text-slate-900 sm:text-2xl">
                       {resultInterest.title}
@@ -466,7 +412,7 @@ export default function Hero() {
                       <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-slate-900 text-white">
                         <Info className="h-2.5 w-2.5" />
                       </span>
-                      <p className="text-[13px] leading-relaxed text-slate-700">
+                      <p className="text-[13px] leading-relaxed text-slate-700 text-right">
                         {level ? RESULTS.level[level] : RESULTS.level.zero}
                       </p>
                     </div>
@@ -474,14 +420,14 @@ export default function Hero() {
                       <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-sky-500 text-white">
                         <ShieldCheck className="h-2.5 w-2.5" />
                       </span>
-                      <p className="text-[13px] leading-relaxed text-slate-700">
+                      <p className="text-[13px] leading-relaxed text-slate-700 text-right">
                         {fear ? RESULTS.fear[fear] : RESULTS.fear.knowledge}
                       </p>
                     </div>
                   </div>
 
-                  <p className="mt-6 text-[12px] font-semibold uppercase tracking-wide text-slate-400">
-                    שלושה צעדים קטנים להתחלה
+                  <p className="mt-6 text-[12px] font-semibold text-right uppercase tracking-wide text-slate-400">
+                    רעיונות מעשיים להתחלה:
                   </p>
                   <ul className="mt-3 space-y-2">
                     {resultInterest.actions.map((a, idx) => (
@@ -489,14 +435,14 @@ export default function Hero() {
                         <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-slate-900 text-[10px] font-bold text-white">
                           {idx + 1}
                         </span>
-                        <span className="text-[13px] leading-relaxed text-slate-700">
+                        <span className="text-[13px] leading-relaxed text-slate-700 text-right">
                           {a}
                         </span>
                       </li>
                     ))}
                   </ul>
 
-                  <div className="mt-6 flex flex-col gap-2.5 sm:flex-row">
+                  <div className="mt-8 flex flex-col gap-2.5 sm:flex-row">
                     <a
                       href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMsg)}`}
                       target="_blank"
@@ -504,7 +450,7 @@ export default function Hero() {
                       className="btn-accent inline-flex flex-1 items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold"
                     >
                       <MessageCircle className="h-4 w-4" />
-                      דברו איתי על מתחזקים
+                      התייעץ בוואטסאפ
                     </a>
                     <button
                       type="button"
@@ -512,7 +458,7 @@ export default function Hero() {
                       className="btn-ghost inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-medium text-slate-600"
                     >
                       <RotateCcw className="h-4 w-4" />
-                      מילוי מחדש
+                      התחל מחדש
                     </button>
                   </div>
                 </div>
@@ -528,20 +474,10 @@ export default function Hero() {
                   className="inline-flex items-center gap-1.5 text-[13px] font-medium text-slate-400 transition hover:text-slate-700"
                 >
                   <ArrowRight className="h-3.5 w-3.5" />
-                  חזרה לשלב הקודם
+                  חזור שלב אחד אחורה
                 </button>
               </div>
             )}
-          </div>
-
-          <div className="mt-5 text-center">
-            <a
-              href="#guides"
-              className="group inline-flex items-center gap-2 text-[13px] font-medium text-slate-500 transition hover:text-slate-800"
-            >
-              אני מעדיף לגלוש ולחקור לבד
-              <ArrowDown className="h-3.5 w-3.5 transition group-hover:translate-y-0.5" />
-            </a>
           </div>
         </Reveal>
       </div>

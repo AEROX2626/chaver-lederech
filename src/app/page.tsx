@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 
 import HeroSection from "@/components/home/HeroSection";
+import QuizSection from "@/components/home/QuizSection";
 import JourneySection from "@/components/home/JourneySection";
 import QuickNeedsSection from "@/components/home/QuickNeedsSection";
 import HardQuestionsSection from "@/components/home/HardQuestionsSection";
@@ -20,6 +21,7 @@ export default function Home() {
       <Header />
       <main>
         <HeroSection />
+        <QuizSection />
         <JourneySection />
         <QuickNeedsSection />
         <HardQuestionsSection />

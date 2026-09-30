@@ -1,6 +1,6 @@
 "use client";
 
-import { Search, ArrowRight, MessageCircle } from "lucide-react";
+import { Search, ArrowDown, ArrowRight, MessageCircle } from "lucide-react";
 import Reveal from "../Reveal";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -43,11 +43,11 @@ export default function HeroSection() {
 
           <Reveal delay={200} className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <a
-              href="/start"
+              href="#quiz-section"
               className="btn-primary inline-flex items-center justify-center gap-2 rounded-xl px-7 py-4 text-sm font-semibold sm:text-[15px]"
             >
               אני לא יודע מאיפה להתחיל
-              <ArrowRight className="h-4 w-4" />
+              <ArrowDown className="h-4 w-4" />
             </a>
             <a
               href="/ask"
