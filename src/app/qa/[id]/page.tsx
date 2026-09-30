@@ -4,76 +4,13 @@ import Reveal from "@/components/Reveal";
 import { ArrowRight, BookOpen, MessageCircle, Footprints } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { QA_DB } from "@/data/qa";
 
-// Hardcoded QA data based on PRD
-const QA_DB: Record<string, { title: string, cat: string, parts: { type: string, title?: string, content: string | React.ReactNode }[] }> = {
-  "why-bad-things-happen": {
-    title: "אם ה׳ טוב, למה קורים דברים רעים?",
-    cat: "סבל וקושי",
-    parts: [
-      {
-        type: "text",
-        content: "זו אחת השאלות הגדולות והכואבות ביותר באמונה.\nכאשר אדם חווה כאב, אובדן, מחלה, אכזבה או עוול, השאלה \"למה?\" היא טבעית.\nאין תשובה אחת פשוטה שמתאימה לכל סיפור."
-      },
-      {
-        type: "text",
-        content: "המסורת היהודית עצמה אינה מתעלמת מהשאלה הזאת. ספר איוב, תהילים וספרי הנביאים מלאים בזעקה, בשאלות ובחיפוש.\n\nחשוב להבדיל בין שני דברים:\n\n**לא לדעת למה משהו קרה**\nלבין\n**להחליט שאין משמעות לחיים או שאין מקום לאמונה.**\n\nאמונה אינה מחייבת אדם להעמיד פנים שהוא מבין כל דבר שקורה לו."
-      },
-      {
-        type: "section",
-        title: "ומה אפשר לעשות עם השאלה?",
-        content: "לא חייבים לפתור אותה ביום אחד.\nאפשר ללמוד. אפשר לשאול. אפשר לדבר. אפשר להתפלל גם מתוך כאב. ואפשר להמשיך לחפש משמעות גם כאשר עדיין אין תשובה מלאה."
-      }
-    ]
-  },
-  "unanswered-prayers": {
-    title: "למה התפילה שלי לא נענית?",
-    cat: "תפילה",
-    parts: [
-      {
-        type: "text",
-        content: "כמעט כל אדם שהתפלל באמת שאל את עצמו את זה בשלב מסוים.\nאנחנו מתפללים למשהו שאנחנו רוצים מאוד — ואז המציאות לא משתנה.\nהתגובה הטבעית היא: אז למה להתפלל?"
-      },
-      {
-        type: "text",
-        content: "היהדות מציגה תפילה לא רק כבקשה לקבל משהו, אלא גם כקשר. רגע שבו אדם עוצר, מדבר, מבקש, מודה, משתף ומכוון את הלב.\nתפילה אינה הבטחה שכל דבר שנבקש יקרה בדיוק כפי שרצינו. אבל זה לא הופך אותה לחסרת משמעות."
-      },
-      {
-        type: "section",
-        title: "מה אפשר לעשות?",
-        content: "במקום להתפלל רק \"תן לי\", אפשר גם: להודות, לשתף, לבקש כוח, לבקש הכוונה, לבקש שהדרך תהיה טובה."
-      },
-      {
-        type: "action",
-        title: "צעד קטן",
-        content: "בחר היום דקה אחת. שב בשקט. ודבר עם ה׳ במילים שלך."
-      }
-    ]
-  },
-  "starting-over": {
-    title: "נפלתי שוב. איך מתחילים מחדש?",
-    cat: "התמודדות ונפילות",
-    parts: [
-      {
-        type: "text",
-        content: "התחזקות שלא מאפשרת נפילות היא לא התחזקות אמיתית.\nהאדם נופל. הוא מתבלבל. הוא חוזר להרגלים ישנים."
-      },
-      {
-        type: "text",
-        content: "השאלה החשובה היא לא:\n\"נפלתי?\"\n\nאלא:\n**\"מה אני עושה עכשיו?\"**"
-      },
-      {
-        type: "text",
-        content: "אל תחכה ליום ראשון. אל תחכה לראש השנה. אל תחכה שתהיה לך מוטיבציה.\nאפשר להתחיל מחדש עכשיו."
-      },
-      {
-        type: "section",
-        title: "כלל פשוט:",
-        content: "**לא מתחילים מחדש כי לא הצלחנו. מתחילים מחדש בדיוק בגלל שלא הצלחנו.**"
-      }
-    ]
-  }
-};
+export async function generateStaticParams() {
+  return Object.keys(QA_DB).map((id) => ({
+    id: id,
+  }));
+}
 
 export default async function QADetailPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = await params;
@@ -81,7 +18,7 @@ export default async function QADetailPage({ params }: { params: Promise<{ id: s
   
   // Try to find the question, otherwise default to a generic one
   const qa = QA_DB[id] || {
-    title: "איך מתחילים לעשות צעד קטן?",
+    title: "התוכן לא נמצא",
     cat: "כללי",
     parts: [{ type: "text", content: "התוכן לעמוד זה יעלה בקרוב. בינתיים, אתה מוזמן לבחון את שאר התכנים באתר." }]
   };

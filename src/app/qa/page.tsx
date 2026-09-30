@@ -2,6 +2,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import { HelpCircle, ChevronLeft } from "lucide-react";
+import { QA_DB } from "@/data/qa";
 
 export const metadata = {
   title: "שאלות ותשובות | מתחזקים",
@@ -9,30 +10,22 @@ export const metadata = {
 };
 
 const CATEGORIES = [
-  "אמונה בבורא",
-  "השגחה",
+  "אמונה",
   "תפילה",
-  "סבל וקושי",
-  "שאלות וספקות",
-  "תורה ומדע",
-  "משמעות החיים",
-  "תשובה והתחלה מחדש",
   "שבת",
-  "מצוות",
-  "חיים יהודיים",
-  "התמודדות ונפילות",
+  "התחזקות ביום־יום",
+  "תשובה והתחלה מחדש",
+  "מצוות ומעשים",
+  "זוגיות, משפחה וקשרים",
+  "קשיים, נפילות ומשברים"
 ];
 
-const QUESTIONS = [
-  { id: "why-bad-things-happen", title: "אם ה׳ טוב, למה קורים דברים רעים?", cat: "סבל וקושי" },
-  { id: "unanswered-prayers", title: "למה התפילה שלי לא נענית?", cat: "תפילה" },
-  { id: "faith-with-doubts", title: "איך אפשר להאמין כשיש לי ספקות?", cat: "שאלות וספקות" },
-  { id: "starting-over", title: "נפלתי שוב. איך מתחילים מחדש?", cat: "התמודדות ונפילות" },
-  { id: "does-god-accept-me", title: "האם ה׳ באמת מקבל אותי אחרי כל מה שעשיתי?", cat: "תשובה והתחלה מחדש" },
-  { id: "shabbat-gradually", title: "איך מתחילים לשמור שבת בלי לשנות את כל החיים ביום אחד?", cat: "שבת" },
-  { id: "why-mitzvot", title: "למה בכלל צריך מצוות?", cat: "מצוות" },
-  { id: "god-is-with-me", title: "איך אני יודע שה׳ באמת איתי?", cat: "אמונה בבורא" },
-];
+// Map over the keys of QA_DB to create the questions array
+const QUESTIONS = Object.entries(QA_DB).map(([id, qa]) => ({
+  id,
+  title: qa.title,
+  cat: qa.cat
+}));
 
 export default function QAPage() {
   return (
