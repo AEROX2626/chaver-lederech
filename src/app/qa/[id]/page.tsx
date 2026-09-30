@@ -17,8 +17,13 @@ export async function generateStaticParams() {
 
 export default async function QADetailPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = await params;
-  const id = resolvedParams.id;
+  let id = resolvedParams.id;
   
+  // If the user navigated to /qa/5 instead of /qa/q-5
+  if (!QA_DB[id] && QA_DB[`q-${id}`]) {
+    id = `q-${id}`;
+  }
+
   // Try to find the question, otherwise default to a generic one
   const qa = QA_DB[id] || {
     title: "התוכן לא נמצא",

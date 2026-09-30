@@ -16,8 +16,12 @@ export async function generateStaticParams() {
 
 export default async function TrackDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = await params;
-  const id = resolvedParams.id;
+  let id = resolvedParams.id;
   
+  if (!TRACKS_DB[id] && TRACKS_DB[`track-${id}`]) {
+    id = `track-${id}`;
+  }
+
   const track = TRACKS_DB[id];
 
   if (!track) {

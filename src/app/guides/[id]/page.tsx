@@ -16,8 +16,12 @@ export async function generateStaticParams() {
 
 export default async function GuideDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = await params;
-  const id = resolvedParams.id;
+  let id = resolvedParams.id;
   
+  if (!GUIDES_DB[id] && GUIDES_DB[`guide-${id}`]) {
+    id = `guide-${id}`;
+  }
+
   const guide = GUIDES_DB[id];
 
   if (!guide) {
