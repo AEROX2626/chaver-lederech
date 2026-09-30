@@ -1,38 +1,38 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
-import { ListChecks, Heart, CheckCircle2, Navigation, MessageCircle } from "lucide-react";
+import { Search, Compass, BookOpen, Footprints, Clock, MessageCircle } from "lucide-react";
 
 export const metadata = {
   title: "לא יודע מאיפה להתחיל? | מתחזקים",
-  description: "בדיוק בשביל זה אנחנו כאן. לא צריך לדעת שום דבר מראש. בואו נתחיל צעד צעד.",
+  description: "יש הרבה מידע, יש הרבה דעות. צריך רק למצוא את הצעד הראשון שמתאים לך.",
 };
 
 const STEPS = [
   {
-    title: "להבין מה חשוב לך",
-    desc: "לפני שעושים משהו, כדאי לשבת רגע עם עצמך. מה משך אותך לחפש? איזה חלק ביהדות מסקרן אותך יותר? אולי השקט של השבת? התפילה? המצוות שבין אדם לחברו?",
-    icon: Heart,
+    title: "להבין מה אתה מחפש",
+    desc: "אולי תמיד הרגשת שיש משהו מעבר. אולי קרה לך משהו שגרם לך לחשוב. אולי גדלת בלי הרבה קשר ליהדות ועכשיו משהו בך מתעורר. אולי אתה כבר מאמין ורוצה להעמיק. ואולי אתה פשוט מחפש שקט, משמעות וקשר. אין תשובה אחת נכונה. הסיבה שבגללה הגעת לכאן היא כבר התחלה.",
+    icon: Search,
   },
   {
     title: "לבחור תחום אחד",
-    desc: "הטעות הכי נפוצה היא לנסות לעשות הכל בבת אחת. זה לא עובד וזה בעיקר מלחיץ. תבחר רק תחום אחד שמרגיש לך נוח להתחיל ממנו.",
-    icon: Navigation,
+    desc: "אל תנסה לשנות הכול בבת אחת. אם תנסה ביום אחד להתחיל להתפלל, ללמוד, לשמור שבת, לשנות הרגלים ולהבין את כל היהדות — סביר להניח שפשוט תרגיש מוצף. בחר דבר אחד. תחום שמסקרן אותך. משהו שאתה מרגיש אליו חיבור. משהו שאתה מסוגל להתחיל ממנו.",
+    icon: Compass,
   },
   {
-    title: "להתחיל מצעד קטן",
-    desc: "צעד קטן הוא הצעד הכי חשוב. אולי להדליק נרות שבת 5 דקות לפני הזמן, אולי לומר פרק תהילים בבוקר, אולי להקדיש כמה שקלים לצדקה ביום. זהו.",
-    icon: ListChecks,
+    title: "ללמוד לפני שמחליטים",
+    desc: "מותר לך קודם כל להבין. לא כל התחזקות חייבת להתחיל בקבלה. לפעמים השלב הראשון הוא פשוט ללמוד: מהי תפילה? למה שומרים שבת? מה המשמעות של ברכה? מהי אמונה? למה התורה מבקשת מאיתנו דברים מסוימים? ככל שמבינים יותר, קל יותר לבחור מתוך חיבור ולא מתוך לחץ.",
+    icon: BookOpen,
   },
   {
-    title: "להתמיד",
-    desc: "הכוח נמצא ברצף. צעד קטן שעושים כל יום או כל שבוע, הופך להרגל ובונה את הקשר. בלי להעמיס עוד ועוד.",
-    icon: CheckCircle2,
+    title: "לבחור צעד קטן",
+    desc: "הצעד הראשון לא צריך להיות גדול. אפשר להתחיל מברכה אחת, תפילה קצרה, כמה דקות לימוד, הדלקת נרות שבת, או מעשה חסד. העיקר הוא לא הגודל. העיקר הוא להתחיל.",
+    icon: Footprints,
   },
   {
-    title: "להוסיף בהדרגה",
-    desc: "רק כשהצעד הראשון מרגיש טבעי ונוח — אפשר לחשוב על הצעד הבא. יש לך חיים שלמים לפניך, אין לאן למהר.",
-    icon: CheckCircle2, // or similar
+    title: "לתת לזמן לעשות את שלו",
+    desc: "התחזקות היא תהליך, לא מבחן. יהיו ימים שתצליח יותר, יהיו ימים שפחות. זה לא מבטל את הדרך. לא כל יום צריך להרגיש התקדמות. לפעמים עצם זה שלא ויתרת הוא ההתקדמות.",
+    icon: Clock,
   },
 ];
 
@@ -48,10 +48,15 @@ export default function StartPage() {
             </span>
             <h1 className="t-display mt-6 text-4xl text-slate-900 sm:text-5xl lg:text-6xl">
               לא יודע מאיפה להתחיל?
+              <br />
+              <span className="text-sky-600">בוא נתחיל מההתחלה.</span>
             </h1>
-            <p className="mt-6 text-xl text-slate-600 leading-relaxed max-w-2xl mx-auto">
-              בדיוק בשביל זה אנחנו כאן. אתה לא צריך לדעת שום דבר מראש, ולא צריך להשתנות ביום אחד. כל מסע גדול מתחיל בצעד קטן.
-            </p>
+            <div className="mt-8 text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto space-y-4">
+              <p>יש הרבה מידע. יש הרבה דעות. יש הרבה דברים שאפשר לעשות.</p>
+              <p>ולפעמים דווקא בגלל זה לא יודעים מאיפה להתחיל.</p>
+              <p className="font-semibold text-slate-800">האמת היא שאתה לא צריך לדעת הכול. אתה גם לא צריך להתחיל הכול.</p>
+              <p>צריך רק למצוא את הצעד הראשון שמתאים לך.</p>
+            </div>
           </Reveal>
 
           <div className="mt-20 relative">
@@ -65,8 +70,8 @@ export default function StartPage() {
                       <step.icon className="h-6 w-6" />
                     </div>
                     <div className="flex-1 pt-2">
-                      <h3 className="t-title text-xl text-slate-900">שלב {idx + 1} – {step.title}</h3>
-                      <p className="mt-2 text-[15px] leading-relaxed text-slate-600">{step.desc}</p>
+                      <h3 className="t-title text-xl text-slate-900">שלב {idx + 1} — {step.title}</h3>
+                      <p className="mt-3 text-[15.5px] leading-relaxed text-slate-600">{step.desc}</p>
                     </div>
                   </div>
                 </Reveal>
@@ -75,15 +80,14 @@ export default function StartPage() {
           </div>
 
           <Reveal delay={300} className="mt-24 text-center">
-            <h2 className="t-title text-2xl text-slate-900">בוא נתחיל יחד</h2>
-            <p className="mt-3 text-slate-600">אנחנו כאן כדי לעזור לך למצוא את הצעד הראשון שלך.</p>
-            <div className="mt-8 flex justify-center">
-              <a href="/tracks" className="btn-primary inline-flex items-center gap-2 rounded-xl px-8 py-4 text-[15px] font-semibold">
-                גלה את המסלולים שלנו
+            <h2 className="t-title text-2xl text-slate-900">רוצה שנעזור לך למצוא את הצעד הראשון?</h2>
+            <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4">
+              <a href="/tracks" className="btn-primary inline-flex items-center justify-center gap-2 rounded-xl px-8 py-4 text-[15px] font-semibold">
+                למצוא את המסלול שלי
               </a>
-              <a href="https://wa.me/972500000000" className="btn-ghost mr-4 inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-8 py-4 text-[15px] font-medium text-slate-700">
-                <MessageCircle className="h-4 w-4" />
-                התייעץ איתנו בחינם
+              <a href="/ask" className="btn-ghost inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-8 py-4 text-[15px] font-medium text-slate-700">
+                <MessageCircle className="h-4 w-4 text-slate-400" />
+                לשאול שאלה
               </a>
             </div>
           </Reveal>

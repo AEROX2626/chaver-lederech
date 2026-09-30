@@ -36,8 +36,8 @@ export default function HeroSection() {
 
           <Reveal delay={100}>
             <p className="t-body mx-auto mt-7 max-w-2xl text-lg leading-relaxed text-slate-600 sm:text-xl">
-              מתחזקים נועד בשבילך — אם אתה בתחילת הדרך, מחפש תשובה לשאלה שמטרידה אותך, 
-              רוצה להתחזק ביום־יום, או פשוט צריך קצת חיזוק עכשיו.
+              מתחזקים הוא המקום שלך בדרך — לשאול, להבין, ללמוד, להתחזק ולעשות צעד קטן קדימה. 
+              בלי לחץ. בלי שיפוטיות. בלי צורך להיות כבר במקום אחר.
             </p>
           </Reveal>
 
@@ -66,7 +66,7 @@ export default function HeroSection() {
                   type="text"
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
-                  placeholder="מה היית רוצה לשאול? (למשל: איך מתחילים לשמור שבת?)"
+                  placeholder="מה עובר לך בראש? (למשל: אני רוצה להתחיל לשמור שבת...)"
                   className="w-full rounded-xl bg-slate-50 py-4 pr-12 pl-4 text-[15px] text-slate-900 outline-none transition focus:bg-white focus:ring-2 focus:ring-sky-500/20"
                 />
                 <button

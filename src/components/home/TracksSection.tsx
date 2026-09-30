@@ -39,13 +39,14 @@ export default function TracksSection() {
         <Reveal>
           <div className="flex flex-col items-center justify-between gap-6 sm:flex-row sm:items-end">
             <div>
-              <h2 className="t-display text-3xl text-slate-900 sm:text-4xl">הדרך שלך מתחילה כאן</h2>
+              <h2 className="t-display text-3xl text-slate-900 sm:text-4xl">לא רק לקרוא. לעבור דרך.</h2>
               <p className="mt-4 text-lg text-slate-600 max-w-xl">
-                בחר מסלול מובנה שיקח אותך צעד אחר צעד. בלי בלבול, עם יעדים ברורים.
+                מידע נותן תשובות. תהליך יוצר שינוי.
+                בחרנו תהליכים מובנים שיקחו אותך צעד אחר צעד, בקצב שלך.
               </p>
             </div>
             <a href="/tracks" className="text-sm font-semibold text-sky-600 hover:text-sky-700">
-              לכל המסלולים &larr;
+              לכל התהליכים והצעדים &larr;
             </a>
           </div>
         </Reveal>

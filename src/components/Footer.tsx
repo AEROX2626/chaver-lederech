@@ -70,7 +70,7 @@ export default function Footer() {
               <li><a href="/contact" className="text-slate-600 transition hover:text-slate-900">צור קשר</a></li>
               <li><a href="/ask" className="text-slate-600 transition hover:text-slate-900">שאל שאלה</a></li>
               <li><a href="/qa" className="text-slate-600 transition hover:text-slate-900">שאלות ותשובות</a></li>
-              <li><a href="/tracks" className="text-slate-600 transition hover:text-slate-900">מסלולים</a></li>
+              <li><a href="/tracks" className="text-slate-600 transition hover:text-slate-900">צעד צעד</a></li>
             </ul>
           </div>
 
@@ -91,7 +91,7 @@ export default function Footer() {
             © {year} מתחזקים. כל הזכויות שמורות.
           </p>
           <p className="text-center text-[12px] font-medium text-slate-500 sm:text-start">
-            מתחזקים — כל יום עוד צעד אחד.
+            מתחזקים. לאט, אמיתי, צעד אחרי צעד.
           </p>
         </div>
       </div>

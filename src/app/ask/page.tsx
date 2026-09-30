@@ -1,90 +1,110 @@
+"use client";
+
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
-import { MessageCircle, ShieldCheck } from "lucide-react";
+import { Send, MessageCircle } from "lucide-react";
+import { useState } from "react";
 
-export const metadata = {
-  title: "שאל שאלה | מתחזקים",
-  description: "גם שאלות קשות, מביכות או כאלה שמעולם לא העזת לשאול — אפשר לשאול כאן.",
-};
+const CATEGORIES = [
+  "אמונה",
+  "תפילה",
+  "שבת",
+  "מצוות",
+  "התחזקות",
+  "תשובה",
+  "זוגיות ומשפחה",
+  "משמעות החיים",
+  "קושי אישי",
+  "אחר",
+];
 
 export default function AskPage() {
+  const [topic, setTopic] = useState("");
+  const [query, setQuery] = useState("");
+  const [wantsReply, setWantsReply] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const msg = `שאלה חדשה מאתר מתחזקים:\nנושא: ${topic || "לא נבחר"}\nשאלה: ${query}\nמעוניין בתשובה: ${wantsReply ? "כן" : "לא"}`;
+    window.open(`https://wa.me/972500000000?text=${encodeURIComponent(msg)}`, "_blank");
+  };
+
   return (
     <>
       <Header />
       <main className="py-24 bg-slate-50 min-h-screen">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <Reveal className="text-center">
+            <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-sky-100 text-sky-600">
+              <MessageCircle className="h-8 w-8" />
+            </div>
             <h1 className="t-display text-4xl text-slate-900 sm:text-5xl">יש לך שאלה? תשאל.</h1>
-            <p className="mt-4 text-lg text-slate-600 max-w-xl mx-auto">
-              גם שאלות קשות, מביכות או כאלה שמעולם לא העזת לשאול — אפשר לשאול כאן. אנחנו מבטיחים לקרוא, לא לשפוט, ולהשתדל לענות מהלב.
-            </p>
+            <div className="mt-4 text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto space-y-2">
+              <p>אין צורך לנסח יפה. אין צורך לדעת איך קוראים למה שאתה מרגיש.</p>
+              <p className="font-medium text-slate-800">פשוט תכתוב. השאלה יכולה להיות אנונימית.</p>
+            </div>
           </Reveal>
 
-          <Reveal delay={100} className="mt-14">
-            <div className="rounded-3xl border border-slate-200 bg-white p-6 sm:p-10 shadow-xl shadow-slate-200/50">
-              <form className="space-y-6">
-                <div>
-                  <label htmlFor="question" className="mb-2 block text-sm font-semibold text-slate-900">
-                    מה היית רוצה לשאול?
-                  </label>
-                  <textarea
-                    id="question"
-                    name="question"
-                    rows={5}
-                    placeholder="כתוב כאן כל מה שעל הלב..."
-                    className="w-full rounded-xl border border-slate-200 bg-slate-50 p-4 text-[15px] text-slate-800 outline-none transition focus:bg-white focus:ring-2 focus:ring-sky-500/20 resize-none"
-                  ></textarea>
+          <Reveal delay={200} className="mt-16">
+            <form onSubmit={handleSubmit} className="rounded-3xl border border-slate-200 bg-white p-6 sm:p-10 shadow-xl shadow-slate-200/50">
+              
+              <div className="mb-8">
+                <label className="block text-sm font-bold text-slate-700 mb-3">באיזה נושא השאלה?</label>
+                <div className="flex flex-wrap gap-2">
+                  {CATEGORIES.map(c => (
+                    <button
+                      key={c}
+                      type="button"
+                      onClick={() => setTopic(c)}
+                      className={`rounded-full px-4 py-2 text-[13px] font-medium transition ${
+                        topic === c
+                          ? "bg-sky-600 text-white"
+                          : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                      }`}
+                    >
+                      {c}
+                    </button>
+                  ))}
                 </div>
+              </div>
 
-                <div>
-                  <label htmlFor="category" className="mb-2 block text-sm font-semibold text-slate-900">
-                    נושא השאלה (אופציונלי)
-                  </label>
-                  <select
-                    id="category"
-                    name="category"
-                    className="w-full appearance-none rounded-xl border border-slate-200 bg-slate-50 px-4 py-3.5 text-[15px] text-slate-800 outline-none transition focus:bg-white focus:ring-2 focus:ring-sky-500/20"
-                  >
-                    <option value="">בחר נושא...</option>
-                    <option value="emuna">אמונה וספקות</option>
-                    <option value="prayer">תפילה</option>
-                    <option value="shabbat">שבת</option>
-                    <option value="mitzvot">מצוות ומעשים</option>
-                    <option value="family">זוגיות ומשפחה</option>
-                    <option value="other">אחר</option>
-                  </select>
-                </div>
+              <div className="mb-8">
+                <label htmlFor="question" className="block text-sm font-bold text-slate-700 mb-3">מה היית רוצה לשאול?</label>
+                <textarea
+                  id="question"
+                  rows={5}
+                  required
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="שתף אותנו במה שעובר עליך..."
+                  className="w-full resize-none rounded-2xl border-0 bg-slate-50 p-4 text-[15px] text-slate-900 ring-1 ring-inset ring-slate-200 focus:ring-2 focus:ring-inset focus:ring-sky-500 outline-none transition"
+                ></textarea>
+              </div>
 
-                <div className="flex items-center gap-3 rounded-xl bg-sky-50/50 p-4 border border-sky-100">
-                  <ShieldCheck className="h-5 w-5 text-sky-600 shrink-0" />
-                  <p className="text-[13px] leading-relaxed text-slate-600">
-                    אפשר לשלוח את השאלה באופן אנונימי לחלוטין. אם תרצה שנענה לך אישית, תוכל להוסיף כתובת מייל או טלפון.
-                  </p>
-                </div>
-
-                <div>
-                  <label htmlFor="contact" className="mb-2 block text-sm font-semibold text-slate-900">
-                    איך לחזור אליך? (אופציונלי)
-                  </label>
+              <div className="mb-8 flex items-start gap-3">
+                <div className="flex h-6 items-center">
                   <input
-                    type="text"
-                    id="contact"
-                    name="contact"
-                    placeholder="מייל או מספר טלפון"
-                    className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3.5 text-[15px] text-slate-800 outline-none transition focus:bg-white focus:ring-2 focus:ring-sky-500/20"
+                    id="reply"
+                    type="checkbox"
+                    checked={wantsReply}
+                    onChange={(e) => setWantsReply(e.target.checked)}
+                    className="h-4 w-4 rounded border-slate-300 text-sky-600 focus:ring-sky-600"
                   />
                 </div>
+                <label htmlFor="reply" className="text-[14px] text-slate-700 select-none cursor-pointer">
+                  אני רוצה לקבל תשובה במייל / וואטסאפ
+                </label>
+              </div>
 
-                <button
-                  type="button"
-                  className="btn-primary w-full inline-flex items-center justify-center gap-2 rounded-xl px-6 py-4 text-[15px] font-semibold"
-                >
-                  <MessageCircle className="h-4 w-4" />
-                  שלח שאלה
-                </button>
-              </form>
-            </div>
+              <button
+                type="submit"
+                className="btn-primary w-full flex items-center justify-center gap-2 rounded-xl py-4 text-[15px] font-semibold"
+              >
+                שליחת השאלה
+                <Send className="h-4 w-4" />
+              </button>
+            </form>
           </Reveal>
         </div>
       </main>

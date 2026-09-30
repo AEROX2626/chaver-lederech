@@ -5,27 +5,33 @@ import { HelpCircle, ChevronLeft } from "lucide-react";
 
 export const metadata = {
   title: "שאלות ותשובות | מתחזקים",
-  description: "כאן אפשר לשאול בכנות, בלי להתבייש ובלי לפחד משאלות קשות.",
+  description: "כאן תמצא תשובות בגובה העיניים לשאלות על אמונה, תפילה, תורה, שבת, מצוות, ספקות, משמעות החיים ועוד.",
 };
 
 const CATEGORIES = [
   "אמונה בבורא",
-  "השגחה פרטית",
+  "השגחה",
   "תפילה",
-  "סבל בעולם",
+  "סבל וקושי",
   "שאלות וספקות",
   "תורה ומדע",
   "משמעות החיים",
-  "נשמה ועולם הבא",
+  "תשובה והתחלה מחדש",
+  "שבת",
+  "מצוות",
+  "חיים יהודיים",
+  "התמודדות ונפילות",
 ];
 
 const QUESTIONS = [
-  { id: 1, title: "אם ה׳ טוב, למה קורים דברים רעים?", cat: "סבל בעולם" },
-  { id: 2, title: "למה התפילה שלי לא נענית?", cat: "תפילה" },
-  { id: 3, title: "איך אפשר להאמין כשיש ספקות?", cat: "שאלות וספקות" },
-  { id: 4, title: "נפלתי שוב. איך מתחילים מחדש?", cat: "תפילה" }, // Needs better cat, but fine for demo
-  { id: 5, title: "האם ה׳ באמת מקבל אותי אחרי כל מה שעשיתי?", cat: "השגחה פרטית" },
-  { id: 6, title: "איך מתחילים לשמור שבת בלי לשנות את כל החיים ביום אחד?", cat: "שאלות וספקות" },
+  { id: "why-bad-things-happen", title: "אם ה׳ טוב, למה קורים דברים רעים?", cat: "סבל וקושי" },
+  { id: "unanswered-prayers", title: "למה התפילה שלי לא נענית?", cat: "תפילה" },
+  { id: "faith-with-doubts", title: "איך אפשר להאמין כשיש לי ספקות?", cat: "שאלות וספקות" },
+  { id: "starting-over", title: "נפלתי שוב. איך מתחילים מחדש?", cat: "התמודדות ונפילות" },
+  { id: "does-god-accept-me", title: "האם ה׳ באמת מקבל אותי אחרי כל מה שעשיתי?", cat: "תשובה והתחלה מחדש" },
+  { id: "shabbat-gradually", title: "איך מתחילים לשמור שבת בלי לשנות את כל החיים ביום אחד?", cat: "שבת" },
+  { id: "why-mitzvot", title: "למה בכלל צריך מצוות?", cat: "מצוות" },
+  { id: "god-is-with-me", title: "איך אני יודע שה׳ באמת איתי?", cat: "אמונה בבורא" },
 ];
 
 export default function QAPage() {
@@ -42,16 +48,18 @@ export default function QAPage() {
             <h1 className="t-display mt-6 text-4xl text-slate-900 sm:text-5xl">
               השאלות שלא תמיד נעים לשאול
             </h1>
-            <p className="mt-6 text-lg text-slate-600 leading-relaxed">
-              כאן אפשר לשאול בכנות, בלי להתבייש ובלי לפחד משאלות קשות. ריכזנו את השאלות הנפוצות ביותר שעולות בתחילת הדרך או בצמתים של ספק.
-            </p>
+            <div className="mt-6 text-lg text-slate-600 leading-relaxed space-y-3">
+              <p>יש שאלות שאנשים שואלים בקול. ויש שאלות שהם שומרים לעצמם.</p>
+              <p>באמונה, דווקא השאלות יכולות להיות חלק מהדרך.</p>
+              <p>כאן תמצא תשובות בגובה העיניים לשאלות על אמונה, תפילה, תורה, שבת, מצוות, ספקות, משמעות החיים ועוד.</p>
+            </div>
           </Reveal>
 
           <div className="mt-16 grid gap-10 lg:grid-cols-4">
             <Reveal className="lg:col-span-1">
               <div className="sticky top-24 rounded-3xl bg-white p-6 border border-slate-200">
-                <h3 className="t-title text-lg text-slate-900 mb-4">קטגוריות</h3>
-                <ul className="space-y-2 text-[14.5px] font-medium text-slate-600">
+                <h3 className="t-title text-lg text-slate-900 mb-4">נושאים</h3>
+                <ul className="space-y-1.5 text-[14px] font-medium text-slate-600">
                   <li>
                     <a href="#" className="block rounded-lg bg-slate-50 px-3 py-2 text-sky-600 transition">
                       הכל
