@@ -47,13 +47,15 @@ export default function HeroSection() {
   }, [query]);
 
   return (
-    <section className="relative overflow-hidden pt-20 pb-24 sm:pt-28 sm:pb-32" id="top">
-      <div className="grid-bg"></div>
+    <section className="relative pt-20 pb-32 sm:pt-28 sm:pb-40" id="top">
+      {/* Background container with overflow hidden to clip orbs, while allowing dropdown to overflow section */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="grid-bg"></div>
+        <div className="orb h-[500px] w-[500px] -top-32 -right-40 bg-sky-200/60"></div>
+        <div className="orb h-[400px] w-[400px] top-40 -left-32 bg-indigo-200/50"></div>
+      </div>
 
-      <div className="orb h-[500px] w-[500px] -top-32 -right-40 bg-sky-200/60"></div>
-      <div className="orb h-[400px] w-[400px] top-40 -left-32 bg-indigo-200/50"></div>
-
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-3xl text-center">
           <Reveal>
             <h1 className="t-display text-4xl text-slate-900 sm:text-6xl lg:text-7xl">
