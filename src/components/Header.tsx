@@ -32,6 +32,12 @@ export default function Header() {
               מדריכים
             </a>
             <a
+              href="#services"
+              className="rounded-lg px-3.5 py-2 text-[13.5px] font-medium text-slate-600 transition hover:bg-slate-50 hover:text-slate-900"
+            >
+              יוזמות מיוחדות
+            </a>
+            <a
               href="#stories"
               className="rounded-lg px-3.5 py-2 text-[13.5px] font-medium text-slate-600 transition hover:bg-slate-50 hover:text-slate-900"
             >
@@ -82,6 +88,13 @@ export default function Header() {
                 className="rounded-lg px-3 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-50"
               >
                 מדריכים
+              </a>
+              <a
+                href="#services"
+                onClick={() => setIsMobileNavOpen(false)}
+                className="rounded-lg px-3 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-50"
+              >
+                יוזמות מיוחדות
               </a>
               <a
                 href="#stories"

@@ -72,6 +72,11 @@ export default function Footer() {
                 </a>
               </li>
               <li>
+                <a href="#services" className="text-slate-600 transition hover:text-slate-900">
+                  יוזמות מיוחדות
+                </a>
+              </li>
+              <li>
                 <a href="#stories" className="text-slate-600 transition hover:text-slate-900">
                   סיפורים
                 </a>

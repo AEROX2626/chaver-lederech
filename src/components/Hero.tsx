@@ -22,6 +22,7 @@ import {
   MessageCircle,
   RotateCcw,
   ArrowRight,
+  Globe,
 } from "lucide-react";
 import Reveal from "./Reveal";
 
@@ -51,6 +52,14 @@ const RESULTS = {
         "עשרה דקות קריאה על טעמי המצוות — בשפה מודרנית.",
         "לשאול שאלה אחת אמיתית, בלי לחפש תשובה מיידית.",
         "שיחה פתוחה עם מתחזקים על מה שמעסיק אותך.",
+      ],
+    },
+    creation: {
+      title: "ההתחלה של הכל",
+      actions: [
+        "להאזין לפודקאסט קצר או לצפות בסרטון בנושא בריאת העולם.",
+        "לשאול רב או מלווה רוחני שאלות על איך זה מסתדר עם המדע.",
+        "להרשות לעצמך לחקור ולחפש תשובות לשאלות הגדולות באמת.",
       ],
     },
     general: {
@@ -260,6 +269,24 @@ export default function Hero() {
                         </span>
                         <span className="mt-0.5 block text-[12px] text-slate-500">
                           המשמעות שמאחורי המעשה
+                        </span>
+                      </span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => handleSelect("interest", "creation")}
+                      className={`opt ${interest === "creation" ? "selected" : ""}`}
+                    >
+                      <span className="opt-icon">
+                        <Globe className="h-4.5 w-4.5" />
+                      </span>
+                      <span className="flex-1">
+                        <span className="block text-[14px] font-semibold text-slate-800">
+                          איך הכל התחיל
+                        </span>
+                        <span className="mt-0.5 block text-[12px] text-slate-500">
+                          לחקור איך העולם נברא ממה הכל התחיל
                         </span>
                       </span>
                     </button>

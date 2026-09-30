@@ -156,6 +156,7 @@ export default function JoinForm() {
                     <option value="shabbat">השקט של השבת</option>
                     <option value="mitzvot">מצוות מעשיות</option>
                     <option value="philosophy">פילוסופיה ומחשבה</option>
+                    <option value="creation">איך הכל התחיל — בריאת העולם</option>
                     <option value="family">בית ומשפחה</option>
                     <option value="general">עדיין לא בטוח — סקרנות כללית</option>
                   </select>
