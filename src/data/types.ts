@@ -8,10 +8,11 @@ export type Category =
   | "זוגיות, משפחה וקשרים"
   | "קשיים, נפילות ומשברים";
 
-export type CTAType = "deepen" | "start" | "help" | "ask" | "read";
+export type CTAType = "deepen" | "learn" | "start" | "help" | "ask" | "read";
 
 export interface CTA {
   type: CTAType;
+  title?: string;
   text: string;
   link: string;
 }
@@ -36,8 +37,13 @@ export interface Guide extends ContentBase {
   description: string;
   intro: string;
   sections: { title: string; content: string }[];
+  takeaway?: string;
+  nextStep?: string;
+  faq?: { q: string; a: string }[];
+  sources?: string[];
+  relatedGuides?: string[];
   relatedTracks: string[];
-  relatedQuestions: string[];
+  relatedQuestions?: string[];
 }
 
 export interface TrackDay {

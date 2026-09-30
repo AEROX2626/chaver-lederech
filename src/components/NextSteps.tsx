@@ -7,27 +7,27 @@ export default function NextSteps({ steps }: { steps: CTA[] }) {
 
   return (
     <div className="mt-20 border-t border-slate-200 pt-16">
-      <h2 className="t-title text-2xl text-slate-900 text-center">מה הצעד הבא שלך?</h2>
-      <div className="mt-8 grid sm:grid-cols-3 gap-4">
+      <h2 className="t-title text-2xl text-slate-900 text-center">לאן ממשיכים מכאן?</h2>
+      <div className="mt-8 grid sm:grid-cols-2 md:grid-cols-3 gap-4">
         {steps.map((step, idx) => {
           let Icon = BookOpen;
-          let title = "להעמיק יותר";
+          let title = step.title || "להעמיק יותר";
           let color = "text-sky-500";
           let borderHover = "hover:border-sky-300";
 
           if (step.type === "start") {
             Icon = Footprints;
-            title = "להתחיל לעשות";
+            title = step.title || "להתחיל לעשות";
             color = "text-emerald-500";
             borderHover = "hover:border-emerald-300";
           } else if (step.type === "help") {
             Icon = MessageCircle;
-            title = "לקבל עזרה";
+            title = step.title || "לקבל עזרה";
             color = "text-indigo-500";
             borderHover = "hover:border-indigo-300";
           } else if (step.type === "ask") {
             Icon = HelpCircle;
-            title = "לשאול שאלה";
+            title = step.title || "לשאול שאלה";
             color = "text-rose-500";
             borderHover = "hover:border-rose-300";
           }
