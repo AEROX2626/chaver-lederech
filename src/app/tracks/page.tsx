@@ -1,0 +1,1 @@
+﻿import Header from '@/components/Header'; import Footer from '@/components/Footer'; export default function Page() { return (<><Header /><main className='py-32 text-center min-h-[60vh]'><h1 className='text-3xl font-bold'>עמוד בבנייה</h1><p className='mt-4'>תוכן יעלה לכאן בקרוב.</p></main><Footer /></>); }

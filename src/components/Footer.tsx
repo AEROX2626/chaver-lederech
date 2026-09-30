@@ -66,51 +66,22 @@ export default function Footer() {
               ניווט
             </h3>
             <ul className="mt-5 space-y-3 text-[13.5px]">
-              <li>
-                <a href="#guides" className="text-slate-600 transition hover:text-slate-900">
-                  מדריכים
-                </a>
-              </li>
-              <li>
-                <a href="#services" className="text-slate-600 transition hover:text-slate-900">
-                  יוזמות מיוחדות
-                </a>
-              </li>
-              <li>
-                <a href="#stories" className="text-slate-600 transition hover:text-slate-900">
-                  סיפורים
-                </a>
-              </li>
-              <li>
-                <a href="#faq" className="text-slate-600 transition hover:text-slate-900">
-                  שאלות נפוצות
-                </a>
-              </li>
-              <li>
-                <a href="#join" className="text-slate-600 transition hover:text-slate-900">
-                  מתחזקים
-                </a>
-              </li>
+              <li><a href="/about" className="text-slate-600 transition hover:text-slate-900">אודות מתחזקים</a></li>
+              <li><a href="/contact" className="text-slate-600 transition hover:text-slate-900">צור קשר</a></li>
+              <li><a href="/ask" className="text-slate-600 transition hover:text-slate-900">שאל שאלה</a></li>
+              <li><a href="/qa" className="text-slate-600 transition hover:text-slate-900">שאלות ותשובות</a></li>
+              <li><a href="/tracks" className="text-slate-600 transition hover:text-slate-900">מסלולים</a></li>
             </ul>
           </div>
 
           <div>
             <h3 className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-400">
-              דיסקרטיות
+              משפטי
             </h3>
             <ul className="mt-5 space-y-3 text-[13.5px]">
-              <li className="flex items-start gap-2 text-slate-600">
-                <Lock className="mt-0.5 h-3.5 w-3.5 shrink-0 text-sky-500" />
-                שיחות חסויות לחלוטין
-              </li>
-              <li className="flex items-start gap-2 text-slate-600">
-                <Shield className="mt-0.5 h-3.5 w-3.5 shrink-0 text-sky-500" />
-                ללא מסירת פרטים מזהים
-              </li>
-              <li className="flex items-start gap-2 text-slate-600">
-                <Trash2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-sky-500" />
-                אפשר למחוק בכל רגע
-              </li>
+              <li><a href="/privacy" className="text-slate-600 transition hover:text-slate-900">פרטיות</a></li>
+              <li><a href="/accessibility" className="text-slate-600 transition hover:text-slate-900">נגישות</a></li>
+              <li><a href="/terms" className="text-slate-600 transition hover:text-slate-900">תנאי שימוש</a></li>
             </ul>
           </div>
         </div>
@@ -119,9 +90,8 @@ export default function Footer() {
           <p className="text-[12px] text-slate-400">
             © {year} מתחזקים. כל הזכויות שמורות.
           </p>
-          <p className="text-center text-[12px] text-slate-400 sm:text-start">
-            אנחנו לא מחליפים ליווי מקצועי. הכול נעשה בסבלנות, בכבוד ובבחירה
-            חופשית.
+          <p className="text-center text-[12px] font-medium text-slate-500 sm:text-start">
+            מתחזקים — כל יום עוד צעד אחד.
           </p>
         </div>
       </div>

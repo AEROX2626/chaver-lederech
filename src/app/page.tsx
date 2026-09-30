@@ -1,15 +1,17 @@
 import ScrollProgress from "@/components/ScrollProgress";
 import Header from "@/components/Header";
-import Hero from "@/components/Hero";
-import Marquee from "@/components/Marquee";
-import Guides from "@/components/Guides";
-import Stats from "@/components/Stats";
-import Stories from "@/components/Stories";
-import FAQ from "@/components/FAQ";
-import JoinForm from "@/components/JoinForm";
 import Footer from "@/components/Footer";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
-import Services from "@/components/Services";
+
+import HeroSection from "@/components/home/HeroSection";
+import JourneySection from "@/components/home/JourneySection";
+import QuickNeedsSection from "@/components/home/QuickNeedsSection";
+import HardQuestionsSection from "@/components/home/HardQuestionsSection";
+import DailyStepsSection from "@/components/home/DailyStepsSection";
+import TracksSection from "@/components/home/TracksSection";
+import StoriesSection from "@/components/home/StoriesSection";
+import PersonalHelpSection from "@/components/home/PersonalHelpSection";
+import AITeaserSection from "@/components/home/AITeaserSection";
 
 export default function Home() {
   return (
@@ -17,14 +19,15 @@ export default function Home() {
       <ScrollProgress />
       <Header />
       <main>
-        <Hero />
-        <Marquee />
-        <Guides />
-        <Services />
-        <Stats />
-        <Stories />
-        <FAQ />
-        <JoinForm />
+        <HeroSection />
+        <JourneySection />
+        <QuickNeedsSection />
+        <HardQuestionsSection />
+        <DailyStepsSection />
+        <TracksSection />
+        <StoriesSection />
+        <PersonalHelpSection />
+        <AITeaserSection />
       </main>
       <Footer />
       <FloatingWhatsApp />
