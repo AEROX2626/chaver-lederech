@@ -50,7 +50,7 @@ const RESULTS = {
       actions: [
         "עשרה דקות קריאה על טעמי המצוות — בשפה מודרנית.",
         "לשאול שאלה אחת אמיתית, בלי לחפש תשובה מיידית.",
-        "שיחה פתוחה עם חבר לדרך על מה שמעסיק אותך.",
+        "שיחה פתוחה עם מתחזקים על מה שמעסיק אותך.",
       ],
     },
     general: {
@@ -58,7 +58,7 @@ const RESULTS = {
       actions: [
         "לבחור נושא אחד שמעניין אותך ולצלול בו לעומק.",
         "עשר דקות ביום של תוכן בגובה העיניים.",
-        "שיחה אחת פתוחה עם חבר לדרך — בלי מחויבות.",
+        "שיחה אחת פתוחה עם מתחזקים — בלי מחויבות.",
       ],
     },
   },
@@ -69,7 +69,7 @@ const RESULTS = {
   },
   fear: {
     say: 'החשש מ"מה יגידו" הוא הכי נפוץ, וזה מובן. אתם לא חייבים להצהיר על כלום — צעדים קטנים לא רואים מבחוץ.',
-    knowledge: "חוסר ידע הוא לא בעיה, הוא בדיוק הסיבה שחבר לדרך קיים. שואלים, מקבלים תשובה, בלי מבחנים ובלי בושה.",
+    knowledge: "חוסר ידע הוא לא בעיה, הוא בדיוק הסיבה שמתחזקים קיים. שואלים, מקבלים תשובה, בלי מבחנים ובלי בושה.",
     hard: "זה לא קשה מדי — זה רק נראה ככה מהצד. כל צעד הוא בגודל שאתם בוחרים, ותמיד אפשר לעצור.",
   },
 };
@@ -110,9 +110,9 @@ export default function Hero() {
   };
 
   const resultInterest = interest ? RESULTS.interest[interest] : RESULTS.interest.general;
-  const whatsappMsg = `היי, מילאתי את השאלון באתר "חבר לדרך".
+  const whatsappMsg = `היי, מילאתי את השאלון באתר "מתחזקים".
 מעניין אותי: ${resultInterest.title}.
-אשמח לשמוע על חבר לדרך.`;
+אשמח לשמוע על מתחזקים.`;
 
   return (
     <section className="relative overflow-hidden" id="top">
@@ -477,7 +477,7 @@ export default function Hero() {
                       className="btn-accent inline-flex flex-1 items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold"
                     >
                       <MessageCircle className="h-4 w-4" />
-                      דברו איתי על חבר לדרך
+                      דברו איתי על מתחזקים
                     </a>
                     <button
                       type="button"

@@ -56,7 +56,7 @@ export default function Stories() {
                 <Star className="h-3.5 w-3.5 fill-current" />
               </div>
               <blockquote className="mt-5 flex-1 text-[14.5px] leading-relaxed text-slate-700">
-                "לא ידעתי איך להתפלל, והתביישתי לשאול. חבר לדרך לימד אותי בלי לשפוט —
+                "לא ידעתי איך להתפלל, והתביישתי לשאול. מתחזקים לימד אותי בלי לשפוט —
                 בלי סידור, בלי מבטא. פשוט לדבר. זה שינה לי את הבוקר."
               </blockquote>
               <figcaption className="mt-6 flex items-center gap-3 border-t border-slate-100 pt-5">

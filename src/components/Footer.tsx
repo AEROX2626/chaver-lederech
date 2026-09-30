@@ -13,7 +13,7 @@ export default function Footer() {
                 <Sun className="h-4 w-4 text-white" />
               </span>
               <span className="text-base font-bold tracking-tight text-slate-900">
-                חבר לדרך
+                מתחזקים
               </span>
             </div>
             <p className="mt-5 max-w-sm text-[13.5px] leading-relaxed text-slate-500">
@@ -83,7 +83,7 @@ export default function Footer() {
               </li>
               <li>
                 <a href="#join" className="text-slate-600 transition hover:text-slate-900">
-                  חבר לדרך
+                  מתחזקים
                 </a>
               </li>
             </ul>
@@ -112,7 +112,7 @@ export default function Footer() {
 
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-slate-100 pt-8 sm:flex-row">
           <p className="text-[12px] text-slate-400">
-            © {year} חבר לדרך. כל הזכויות שמורות.
+            © {year} מתחזקים. כל הזכויות שמורות.
           </p>
           <p className="text-center text-[12px] text-slate-400 sm:text-start">
             אנחנו לא מחליפים ליווי מקצועי. הכול נעשה בסבלנות, בכבוד ובבחירה

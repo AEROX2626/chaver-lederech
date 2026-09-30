@@ -58,7 +58,7 @@ export default function JoinForm() {
             <div>
               <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[11.5px] font-medium text-white/80 backdrop-blur">
                 <HeartHandshake className="h-3 w-3" />
-                חבר לדרך
+                מתחזקים
               </span>
 
               <h2 className="t-display mt-6 text-3xl text-white sm:text-5xl">
@@ -166,7 +166,7 @@ export default function JoinForm() {
                   className="btn-accent mt-2 inline-flex w-full items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold"
                 >
                   <Handshake className="h-4 w-4" />
-                  מצאו לי חבר לדרך
+                  שלח פרטים
                 </button>
 
                 {status !== "idle" && (

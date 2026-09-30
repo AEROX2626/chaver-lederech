@@ -9,6 +9,7 @@ import FAQ from "@/components/FAQ";
 import JoinForm from "@/components/JoinForm";
 import Footer from "@/components/Footer";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
+import Services from "@/components/Services";
 
 export default function Home() {
   return (
@@ -19,6 +20,7 @@ export default function Home() {
         <Hero />
         <Marquee />
         <Guides />
+        <Services />
         <Stats />
         <Stories />
         <FAQ />

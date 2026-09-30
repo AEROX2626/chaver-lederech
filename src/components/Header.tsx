@@ -16,7 +16,7 @@ export default function Header() {
             </span>
             <span className="flex flex-col leading-none">
               <span className="text-[15px] font-bold tracking-tight text-slate-900">
-                חבר לדרך
+                מתחזקים
               </span>
               <span className="text-[10px] font-medium text-slate-500">
                 בצעד קטן, ביחד
@@ -47,7 +47,7 @@ export default function Header() {
               href="#join"
               className="rounded-lg px-3.5 py-2 text-[13.5px] font-medium text-slate-600 transition hover:bg-slate-50 hover:text-slate-900"
             >
-              חבר לדרך
+              מתחזקים
             </a>
           </nav>
 
@@ -102,7 +102,7 @@ export default function Header() {
                 onClick={() => setIsMobileNavOpen(false)}
                 className="rounded-lg px-3 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-50"
               >
-                חבר לדרך
+                מתחזקים
               </a>
               <a
                 href="https://wa.me/972500000000"
