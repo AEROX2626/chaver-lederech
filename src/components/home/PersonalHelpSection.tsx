@@ -25,7 +25,7 @@ export default function PersonalHelpSection() {
             <MessageCircle className="h-4 w-4" />
             שאל שאלה באופן אנונימי
           </a>
-          <a href="/help/talk" className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl border border-sky-400/30 bg-sky-800/50 px-7 py-4 text-sm font-semibold text-white transition hover:bg-sky-800 backdrop-blur-sm">
+          <a href="/help" className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl border border-sky-400/30 bg-sky-800/50 px-7 py-4 text-sm font-semibold text-white transition hover:bg-sky-800 backdrop-blur-sm">
             <UserCheck className="h-4 w-4" />
             אני רוצה לדבר עם מישהו
           </a>

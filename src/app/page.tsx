@@ -13,6 +13,7 @@ import TracksSection from "@/components/home/TracksSection";
 import StoriesSection from "@/components/home/StoriesSection";
 import PersonalHelpSection from "@/components/home/PersonalHelpSection";
 import AITeaserSection from "@/components/home/AITeaserSection";
+import ContinueJourney from "@/components/ContinueJourney";
 
 export default function Home() {
   return (
@@ -21,6 +22,7 @@ export default function Home() {
       <Header />
       <main>
         <HeroSection />
+        <ContinueJourney />
         <QuizSection />
         <JourneySection />
         <QuickNeedsSection />

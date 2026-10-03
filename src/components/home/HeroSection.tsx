@@ -34,8 +34,7 @@ export default function HeroSection() {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (query.trim()) {
-      // Just go to the QA page for now if user hits enter instead of clicking a suggestion
-      router.push(`/qa`);
+      router.push(`/chat?q=${encodeURIComponent(query)}`);
     }
   };
 
@@ -99,15 +98,13 @@ export default function HeroSection() {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   onFocus={() => setIsFocused(true)}
-                  placeholder="מה עובר לך בראש? (למשל: אני רוצה להתחיל לשמור שבת...)"
+                  placeholder="אני רוצה להתחזק אבל לא יודע איך..."
                   className="w-full rounded-xl bg-slate-50 py-4 pr-12 pl-4 text-[15px] text-slate-900 outline-none transition focus:bg-white focus:ring-2 focus:ring-sky-500/20"
                 />
                 <button
                   type="submit"
                   className="absolute left-2 rounded-lg bg-slate-900 px-5 py-2 text-sm font-semibold text-white transition hover:bg-slate-800"
-                >
-                  חפש
-                </button>
+                >בוא נתחיל</button>
               </form>
 
               {/* Autocomplete Dropdown */}

@@ -51,7 +51,7 @@ export default function DailyStepsSection() {
               מוכן לבחור צעד אחד קטן שמתאים לך היום?
             </p>
             <a
-              href="/daily/random"
+              href="/daily"
               className="mt-6 inline-flex items-center gap-2 rounded-xl bg-emerald-600 text-white px-6 py-3 text-sm font-semibold transition hover:bg-emerald-700 hover:shadow-lg hover:shadow-emerald-900/10"
             >
               בחר לי צעד קטן
