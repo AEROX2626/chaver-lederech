@@ -2,13 +2,17 @@ import { google } from '@ai-sdk/google';
 import { streamText } from 'ai';
 import { createClient } from '@supabase/supabase-js';
 
-// Setup Supabase
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
-const googleApiKey = process.env.GOOGLE_GENERATIVE_AI_API_KEY!;
-const supabase = createClient(supabaseUrl, supabaseKey);
-
 export async function POST(req: Request) {
+  // Setup Supabase (initialized inside handler to avoid build-time errors if env vars are missing)
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const googleApiKey = process.env.GOOGLE_GENERATIVE_AI_API_KEY;
+
+  if (!supabaseUrl || !supabaseKey || !googleApiKey) {
+    return new Response(JSON.stringify({ error: "Missing environment variables" }), { status: 500 });
+  }
+
+  const supabase = createClient(supabaseUrl, supabaseKey);
   try {
     const { messages } = await req.json();
     
