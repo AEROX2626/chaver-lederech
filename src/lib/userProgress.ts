@@ -94,11 +94,19 @@ export function useUserProgress() {
              completedMap[localSlug] = days;
           });
 
-          const latestSlug = (window as any).__trackMap?.uuidToSlug[latest.track_id] || latest.track_id;
+          // Find the most recently active INCOMPLETE track
+          const latestIncomplete = sorted.find(p => !p.completed);
+          let currentTrackSlug = null;
+          let currentDayNum = 1;
+
+          if (latestIncomplete) {
+            currentTrackSlug = (window as any).__trackMap?.uuidToSlug[latestIncomplete.track_id] || latestIncomplete.track_id;
+            currentDayNum = latestIncomplete.current_day;
+          }
 
           setState({
-            currentTrack: latest.completed ? null : latestSlug,
-            currentDay: latest.current_day,
+            currentTrack: currentTrackSlug,
+            currentDay: currentDayNum,
             completedDays: completedMap,
             lastActive: latest.last_activity
           });

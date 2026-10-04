@@ -111,7 +111,13 @@ export default function TrackViewer({ track }: { track: Track }) {
         <Reveal delay={200} className="mt-16 text-center bg-emerald-50 border border-emerald-200 rounded-3xl p-10">
           <CheckCircle className="h-16 w-16 text-emerald-500 mx-auto mb-4" />
           <h2 className="t-title text-3xl text-emerald-900 mb-2">כל הכבוד!</h2>
-          <p className="text-emerald-700 font-medium text-lg">{track.completionMessage}</p>
+          <p className="text-emerald-700 font-medium text-lg mb-8">{track.completionMessage}</p>
+          <a 
+            href="/tracks"
+            className="btn-primary inline-flex items-center gap-2 rounded-xl px-8 py-3.5 text-[15px] font-semibold"
+          >
+            חזור למסלולים
+          </a>
         </Reveal>
       )}
     </div>
