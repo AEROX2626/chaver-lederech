@@ -87,7 +87,7 @@ export default function TrackViewer({ track }: { track: Track }) {
 
                     {isActive && (
                       <button 
-                        onClick={() => completeDay(track.id, day.dayNumber)}
+                        onClick={() => completeDay(track.id, day.dayNumber, day.dayNumber === track.durationDays)}
                         className="btn-primary w-full sm:w-auto inline-flex justify-center items-center gap-2 rounded-xl px-8 py-3.5 text-[15px] font-semibold"
                       >
                         <CheckCircle className="h-5 w-5" />

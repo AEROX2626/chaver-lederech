@@ -132,16 +132,16 @@ export function useUserProgress() {
     if (userId) {
       const uuid = (window as any).__trackMap?.slugToUuid[trackSlug] || trackSlug;
       // Upsert into Supabase
-      const { error } = await supabase.from('user_progress').upsert({
+      const { data, error } = await supabase.from('user_progress').upsert({
         user_id: userId,
         track_id: uuid,
         current_day: 1,
         completed: false,
         last_activity: new Date().toISOString()
-      }, { onConflict: 'user_id,track_id' });
+      }, { onConflict: 'user_id,track_id' }).select();
       
-      if (error) {
-        console.error("Failed to start track in Supabase:", error);
+      if (error || !data || data.length === 0) {
+        console.error("Failed to start track in Supabase:", error || "No row updated");
         alert("אירעה שגיאה בשמירת הנתונים. נסה שוב.");
         return false;
       }
@@ -167,15 +167,15 @@ export function useUserProgress() {
     
     if (userId) {
       const uuid = (window as any).__trackMap?.slugToUuid[trackSlug] || trackSlug;
-      const { error } = await supabase.from('user_progress').update({
+      const { data, error } = await supabase.from('user_progress').update({
         current_day: isLastDay ? dayNumber : nextDay,
         completed: isLastDay,
         last_activity: new Date().toISOString()
-      }).match({ user_id: userId, track_id: uuid });
+      }).match({ user_id: userId, track_id: uuid }).select();
 
-      if (error) {
-        console.error("Failed to complete day in Supabase:", error);
-        alert("אירעה שגיאה בשמירת ההתקדמות. נסה שוב.");
+      if (error || !data || data.length === 0) {
+        console.error("Failed to complete day in Supabase:", error || "No row updated");
+        alert("אירעה שגיאה בשמירת ההתקדמות. ייתכן שהמסלול לא הותחל כראוי.");
         return false;
       }
     }
