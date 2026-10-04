@@ -1,43 +1,79 @@
 "use client";
 
-import { useState, useEffect, Suspense } from "react";
+import { useEffect, Suspense, useState, useRef } from "react";
 import Header from "@/components/Header";
 import { useSearchParams } from "next/navigation";
-import { Send, ArrowRight, PlayCircle, BookOpen, Footprints, MessageSquare } from "lucide-react";
+import { Send, ArrowRight, MessageSquare } from "lucide-react";
 import Link from "next/link";
 import { useUserProgress } from "@/lib/userProgress";
 import Reveal from "@/components/Reveal";
+import Markdown from 'react-markdown';
 
 function ChatContent() {
   const searchParams = useSearchParams();
   const initialQuery = searchParams.get("q") || "";
-  const [messages, setMessages] = useState<{ role: "user" | "ai", text: string }[]>([]);
-  const [input, setInput] = useState("");
-  const [isTyping, setIsTyping] = useState(false);
   const { startTrack } = useUserProgress();
+  const [input, setInput] = useState("");
+  const [messages, setMessages] = useState<{role: 'user' | 'assistant', content: string}[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (initialQuery && messages.length === 0) {
-      setMessages([{ role: "user", text: initialQuery }]);
-      simulateAIResponse(initialQuery);
+      handleSendQuery(initialQuery);
     }
   }, [initialQuery]);
 
-  const simulateAIResponse = (query: string) => {
-    setIsTyping(true);
-    setTimeout(() => {
-      setMessages(prev => [...prev, { role: "ai", text: query }]);
-      setIsTyping(false);
-    }, 1500);
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages, isLoading]);
+
+  const handleSendQuery = async (query: string) => {
+    const newMessages = [...messages, { role: 'user' as const, content: query }];
+    setMessages(newMessages);
+    setIsLoading(true);
+
+    try {
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: newMessages }),
+      });
+
+      if (!res.ok) throw new Error("Failed to fetch");
+
+      const reader = res.body?.getReader();
+      const decoder = new TextDecoder();
+      let assistantMsg = "";
+      
+      setMessages([...newMessages, { role: 'assistant', content: "" }]);
+
+      if (reader) {
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          const chunk = decoder.decode(value);
+          // Vercel AI SDK toTextStreamResponse chunks start with text parsing, or if plain text stream, it's just raw text.
+          // To be safe, if we get raw text we just append it. If it's Vercel format (0: "text"), we could parse it.
+          // But since we just want it to work, let's assume it's a raw string stream because toTextStreamResponse returns plain text stream.
+          assistantMsg += chunk;
+          setMessages([...newMessages, { role: 'assistant', content: assistantMsg }]);
+        }
+      }
+    } catch (e) {
+      console.error(e);
+      setMessages([...newMessages, { role: 'assistant', content: "מצטער, הייתה שגיאה בתקשורת." }]);
+    }
+    
+    setIsLoading(false);
   };
 
-  const handleSend = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!input.trim()) return;
-    const userMsg = input.trim();
-    setMessages(prev => [...prev, { role: "user", text: userMsg }]);
+    if (!input.trim() || isLoading) return;
+    const query = input.trim();
     setInput("");
-    simulateAIResponse(userMsg);
+    handleSendQuery(query);
   };
 
   return (
@@ -50,7 +86,7 @@ function ChatContent() {
       </div>
 
       <div className="flex-1 flex flex-col gap-6 mb-24 pb-8 overflow-y-auto">
-        {messages.length === 0 && !isTyping && (
+        {messages.length === 0 && !isLoading && (
           <div className="text-center py-20 text-slate-400 flex flex-col items-center">
             <MessageSquare className="h-12 w-12 mb-4 opacity-20" />
             <p>מה עובר לך בראש?</p>
@@ -62,58 +98,20 @@ function ChatContent() {
             {m.role === "user" ? (
               <div className="flex justify-end">
                 <div className="bg-sky-500 text-white px-5 py-3.5 rounded-2xl rounded-tl-sm max-w-[85%] text-[15px] leading-relaxed shadow-sm">
-                  {m.text}
+                  {m.content}
                 </div>
               </div>
             ) : (
               <div className="flex justify-start">
-                <div className="bg-white border border-slate-200 text-slate-800 p-6 sm:p-8 rounded-3xl rounded-tr-sm max-w-[95%] sm:max-w-[85%] shadow-sm w-full">
-                  <h3 className="text-lg font-bold text-slate-900 mb-2">אני שומע אותך.</h3>
-                  <p className="text-[15px] leading-relaxed text-slate-600 mb-8">
-                    זה בסדר גמור לא לדעת מאיפה מתחילים. לא צריך להכיר הכל ולא צריך לשנות הכל ביום אחד. 
-                    מה שהכי חשוב זה הצעד הקטן הראשון.
-                  </p>
-
-                  <div className="space-y-4">
-                    <div className="rounded-2xl border border-sky-100 bg-sky-50/50 p-5">
-                      <div className="flex items-center gap-2 font-semibold text-sky-800 mb-2">
-                        <BookOpen className="h-4 w-4" /> משהו שיכול לעזור
-                      </div>
-                      <p className="text-sm text-slate-600 mb-3">מדריך קצר שמסביר למה מתפללים ואיך מתחילים.</p>
-                      <Link href="/guides/guide-p01" className="text-sm font-semibold text-sky-600 hover:underline">
-                        תפילה למתחילים &larr;
-                      </Link>
-                    </div>
-
-                    <div className="rounded-2xl border border-emerald-100 bg-emerald-50/50 p-5">
-                      <div className="flex items-center gap-2 font-semibold text-emerald-800 mb-2">
-                        <Footprints className="h-4 w-4" /> הצעד שלך
-                      </div>
-                      <p className="text-sm text-slate-700">עצור היום ל-30 שניות, נשום ואמור תודה על משהו אחד קטן.</p>
-                    </div>
-
-                    <div className="rounded-2xl border border-rose-100 bg-rose-50/50 p-5">
-                      <div className="flex items-center gap-2 font-semibold text-rose-800 mb-2">
-                        <PlayCircle className="h-4 w-4" /> רוצה לעבור מסלול?
-                      </div>
-                      <p className="text-sm text-slate-600 mb-4">תפילה מהלב - 7 ימים של התקרבות.</p>
-                      <Link 
-                        href="/tracks/track-06"
-                        onClick={() => startTrack("track-06")} 
-                        className="bg-white border border-slate-200 text-slate-700 rounded-lg px-4 py-2 text-sm font-semibold hover:bg-slate-50 transition"
-                      >
-                        אני מתחיל
-                      </Link>
-                    </div>
-                  </div>
-
+                <div className="bg-white border border-slate-200 text-slate-800 p-6 sm:p-8 rounded-3xl rounded-tr-sm max-w-[95%] sm:max-w-[85%] shadow-sm w-full prose prose-slate prose-headings:text-slate-900 prose-a:text-sky-600 rtl:prose-headings:text-right text-right">
+                  <Markdown>{m.content}</Markdown>
                 </div>
               </div>
             )}
           </Reveal>
         ))}
 
-        {isTyping && (
+        {isLoading && (
           <div className="flex justify-start">
             <div className="bg-white border border-slate-200 text-slate-500 px-5 py-4 rounded-3xl rounded-tr-sm shadow-sm flex items-center gap-2">
               <div className="w-2 h-2 bg-slate-300 rounded-full animate-bounce"></div>
@@ -122,21 +120,22 @@ function ChatContent() {
             </div>
           </div>
         )}
+        <div ref={bottomRef} />
       </div>
 
       <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 p-4 pb-6 sm:pb-8">
         <div className="max-w-3xl mx-auto">
-          <form onSubmit={handleSend} className="relative flex items-center">
+          <form onSubmit={handleSubmit} className="relative flex items-center">
             <input 
               type="text" 
               value={input}
-              onChange={e => setInput(e.target.value)}
+              onChange={(e) => setInput(e.target.value)}
               placeholder="כתוב כאן משהו..."
               className="w-full bg-slate-100 border border-slate-200 rounded-full py-3.5 pr-5 pl-12 text-[15px] focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:bg-white transition"
             />
             <button 
               type="submit"
-              disabled={!input.trim() || isTyping}
+              disabled={!input.trim() || isLoading}
               className="absolute left-2 w-9 h-9 flex items-center justify-center bg-sky-500 text-white rounded-full hover:bg-sky-600 disabled:opacity-50 transition"
             >
               <Send className="h-4 w-4 rtl:-scale-x-100" />
