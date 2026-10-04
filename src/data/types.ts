@@ -28,6 +28,7 @@ export type ReviewStatus = "DRAFT" | "AI_DRAFT" | "EDITOR_REVIEW" | "RABBI_REVIE
 // Base Content Node Interface
 export interface ContentBase {
   id: string;
+  uuid?: string;
   title: string;
   slug?: string;
   category: Category;

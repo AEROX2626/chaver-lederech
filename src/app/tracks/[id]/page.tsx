@@ -65,7 +65,8 @@ export default async function TrackDetailPage({ params }: { params: Promise<{ id
 
       if (trackData && daysData) {
         track = {
-          id: contentData.id, // We use the UUID as the ID now
+          id: id, // SLUG is the primary UI identifier
+          uuid: contentData.id, // Internal UUID for Supabase operations if needed
           slug: id,
           title: contentData.title,
           description: contentData.summary,

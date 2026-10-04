@@ -4,9 +4,9 @@ import { useState, useEffect } from 'react';
 import { supabase } from './supabaseClient';
 
 export interface UserProgressState {
-  currentTrack: string | null; // This will now be the track UUID
+  currentTrack: string | null; // This will ALWAYS be the track slug for the UI
   currentDay: number;
-  completedDays: Record<string, number[]>; // trackId (UUID) -> array of completed day numbers
+  completedDays: Record<string, number[]>; // trackSlug -> array of completed day numbers
   lastActive: string;
 }
 
@@ -128,11 +128,11 @@ export function useUserProgress() {
     setState(newState);
   };
 
-  const startTrack = async (trackId: string) => {
+  const startTrack = async (trackSlug: string) => {
     if (userId) {
-      const uuid = (window as any).__trackMap?.slugToUuid[trackId] || trackId;
+      const uuid = (window as any).__trackMap?.slugToUuid[trackSlug] || trackSlug;
       // Upsert into Supabase
-      await supabase.from('user_progress').upsert({
+      const { error } = await supabase.from('user_progress').upsert({
         user_id: userId,
         track_id: uuid,
         current_day: 1,
@@ -140,33 +140,47 @@ export function useUserProgress() {
         last_activity: new Date().toISOString()
       }, { onConflict: 'user_id,track_id' });
       
+      if (error) {
+        console.error("Failed to start track in Supabase:", error);
+        alert("אירעה שגיאה בשמירת הנתונים. נסה שוב.");
+        return false;
+      }
+      
       setState(prev => ({
         ...prev,
-        currentTrack: trackId,
+        currentTrack: trackSlug,
         currentDay: 1,
       }));
+      return true;
     } else {
       saveStateLocalFallback({
         ...state,
-        currentTrack: trackId,
+        currentTrack: trackSlug,
         currentDay: 1,
       });
+      return true;
     }
   };
 
-  const completeDay = async (trackId: string, dayNumber: number, isLastDay: boolean = false) => {
+  const completeDay = async (trackSlug: string, dayNumber: number, isLastDay: boolean = false) => {
     const nextDay = dayNumber + 1;
     
     if (userId) {
-      const uuid = (window as any).__trackMap?.slugToUuid[trackId] || trackId;
-      await supabase.from('user_progress').update({
+      const uuid = (window as any).__trackMap?.slugToUuid[trackSlug] || trackSlug;
+      const { error } = await supabase.from('user_progress').update({
         current_day: isLastDay ? dayNumber : nextDay,
         completed: isLastDay,
         last_activity: new Date().toISOString()
       }).match({ user_id: userId, track_id: uuid });
+
+      if (error) {
+        console.error("Failed to complete day in Supabase:", error);
+        alert("אירעה שגיאה בשמירת ההתקדמות. נסה שוב.");
+        return false;
+      }
     }
 
-    const trackCompleted = state.completedDays[trackId] || [];
+    const trackCompleted = state.completedDays[trackSlug] || [];
     if (!trackCompleted.includes(dayNumber)) {
       trackCompleted.push(dayNumber);
     }
@@ -175,18 +189,19 @@ export function useUserProgress() {
       ...state,
       completedDays: {
         ...state.completedDays,
-        [trackId]: trackCompleted
+        [trackSlug]: trackCompleted
       },
       currentDay: isLastDay ? dayNumber : nextDay,
-      currentTrack: isLastDay ? null : trackId
+      currentTrack: isLastDay ? null : trackSlug
     };
     
     setState(newState);
     if (!userId) saveStateLocalFallback(newState);
+    return true;
   };
 
-  const isDayCompleted = (trackId: string, dayNumber: number) => {
-    return (state.completedDays[trackId] || []).includes(dayNumber);
+  const isDayCompleted = (trackSlug: string, dayNumber: number) => {
+    return (state.completedDays[trackSlug] || []).includes(dayNumber);
   };
 
   const getCurrentProgress = () => {
