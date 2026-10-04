@@ -7,19 +7,24 @@ import NextSteps from "@/components/NextSteps";
 import { CTA } from "@/data/types";
 import TrackViewer from "@/components/TrackViewer";
 import { createClient } from "@supabase/supabase-js";
-
-// We can just create a basic client here since it's just fetching public data
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
+import { TRACKS_DB } from "@/data/tracks";
 
 export const revalidate = 60; // Revalidate every minute
 
 export async function generateStaticParams() {
-  const { data } = await supabase.from('content_items').select('slug').eq('type', 'TRACK');
-  if (!data) return [];
-  return data.map((t) => ({ id: t.slug }));
+  if (process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+    );
+    const { data } = await supabase.from('content_items').select('slug').eq('type', 'TRACK');
+    if (data) {
+      return data.map((t) => ({ id: t.slug }));
+    }
+  }
+  
+  // Fallback to local DB keys if Supabase isn't available during build
+  return Object.keys(TRACKS_DB).map((id) => ({ id }));
 }
 
 export default async function TrackDetailPage({ params }: { params: Promise<{ id: string }> }) {
@@ -30,48 +35,60 @@ export default async function TrackDetailPage({ params }: { params: Promise<{ id
     id = `track-${id}`;
   }
 
-  // Fetch track from Supabase
-  const { data: contentData } = await supabase
-    .from('content_items')
-    .select('id, title, summary, category, tags, difficulty')
-    .eq('slug', id)
-    .single();
-
   let track = null;
 
-  if (contentData) {
-    const { data: trackData } = await supabase
-      .from('tracks')
-      .select('duration_days, completion_message')
-      .eq('id', contentData.id)
+  if (process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+    );
+    
+    // Fetch track from Supabase
+    const { data: contentData } = await supabase
+      .from('content_items')
+      .select('id, title, summary, category, tags, difficulty')
+      .eq('slug', id)
       .single();
 
-    const { data: daysData } = await supabase
-      .from('track_days')
-      .select('*')
-      .eq('track_id', contentData.id)
-      .order('day_number', { ascending: true });
+    if (contentData) {
+      const { data: trackData } = await supabase
+        .from('tracks')
+        .select('duration_days, completion_message')
+        .eq('id', contentData.id)
+        .single();
 
-    if (trackData && daysData) {
-      track = {
-        id: contentData.id, // We use the UUID as the ID now
-        slug: id,
-        title: contentData.title,
-        description: contentData.summary,
-        category: contentData.category,
-        tags: contentData.tags,
-        difficulty: contentData.difficulty,
-        durationDays: trackData.duration_days,
-        completionMessage: trackData.completion_message,
-        days: daysData.map(d => ({
-          dayNumber: d.day_number,
-          title: d.title,
-          content: d.content,
-          action: d.action,
-          estimatedMinutes: d.estimated_minutes
-        }))
-      };
+      const { data: daysData } = await supabase
+        .from('track_days')
+        .select('*')
+        .eq('track_id', contentData.id)
+        .order('day_number', { ascending: true });
+
+      if (trackData && daysData) {
+        track = {
+          id: contentData.id, // We use the UUID as the ID now
+          slug: id,
+          title: contentData.title,
+          description: contentData.summary,
+          category: contentData.category,
+          tags: contentData.tags,
+          difficulty: contentData.difficulty,
+          durationDays: trackData.duration_days,
+          completionMessage: trackData.completion_message,
+          days: daysData.map(d => ({
+            dayNumber: d.day_number,
+            title: d.title,
+            content: d.content,
+            action: d.action,
+            estimatedMinutes: d.estimated_minutes
+          }))
+        };
+      }
     }
+  }
+
+  // Fallback to local data if Supabase fetch fails or is unconfigured
+  if (!track && TRACKS_DB[id]) {
+    track = TRACKS_DB[id];
   }
 
   if (!track) {

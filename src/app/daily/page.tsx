@@ -82,7 +82,7 @@ export default function DailyPage() {
                 <p className="text-lg leading-relaxed text-slate-800 font-medium mb-6">
                   איפה אני מרגיש שהכי קשה לי לעצור את המרוץ היומיומי?
                 </p>
-                <Link href="/guides/guide-10" className="inline-flex justify-center rounded-xl py-3 px-6 text-sm font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 transition">
+                <Link href="/guides/guide-p01" className="inline-flex justify-center rounded-xl py-3 px-6 text-sm font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 transition">
                   למדריך קשור: לעצור הכל
                 </Link>
               </div>

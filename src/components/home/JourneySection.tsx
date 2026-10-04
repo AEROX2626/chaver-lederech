@@ -4,16 +4,16 @@ import Reveal from "../Reveal";
 const CARDS = [
   {
     icon: Sprout,
-    title: "אני רוצה להתחיל",
-    desc: "מושגים בסיסיים, אמונה, תפילה, שבת, ברכות ומדריכים למתחילים.",
+    title: "אני רוצה להתחזק",
+    desc: "צעדים ראשונים, תפילה, שבת, אמונה ויסודות.",
     href: "/start",
     color: "text-emerald-600",
     bg: "bg-emerald-50",
   },
   {
     icon: Heart,
-    title: "אני רוצה להתחזק",
-    desc: "צעדים קטנים, הרגלים טובים, תפילה, לימוד, מצוות והתחזקות ביום־יום.",
+    title: "אני רוצה להתפלל",
+    desc: "ברכות קצרות, תהילים, תפילה אישית וכל מה שצריך.",
     href: "/daily",
     color: "text-rose-500",
     bg: "bg-rose-50",
@@ -21,7 +21,7 @@ const CARDS = [
   {
     icon: HelpCircle,
     title: "יש לי שאלות באמונה",
-    desc: "שאלות קשות, ספקות, תפילה, השגחה, תורה, סבל ומשמעות.",
+    desc: "שאלות על ה', משמעות, תפילה, השגחה ועוד.",
     href: "/qa",
     color: "text-sky-500",
     bg: "bg-sky-50",
@@ -29,24 +29,24 @@ const CARDS = [
   {
     icon: CloudRain,
     title: "קשה לי עכשיו",
-    desc: "תכנים וחיזוק למצבים של משבר, בדידות, נפילה, אכזבה וקושי.",
-    href: "/support",
+    desc: "חיזוק לתקופות קשות, התמודדות, נחמה.",
+    href: "/ask",
     color: "text-indigo-500",
     bg: "bg-indigo-50",
   },
   {
     icon: RotateCcw,
-    title: "התרחקתי ואני רוצה לחזור",
-    desc: "תוכן למי שרוצה להתחיל מחדש, בלי לחץ ובלי תחושה שהוא צריך להיות כבר במקום אחר.",
-    href: "/return",
+    title: "חזרתי בשאלה ואני מתגעגע",
+    desc: "התחלה חדשה בקצב שלך.",
+    href: "/start",
     color: "text-amber-500",
     bg: "bg-amber-50",
   },
   {
     icon: UserPlus,
-    title: "אני צריך לדבר עם מישהו",
-    desc: "הכוונה לעזרה אישית, רב, מלווה או גורם מתאים בהתאם לצורך.",
-    href: "/help",
+    title: "אני צריך עזרה אישית",
+    desc: "דבר איתנו, התייעץ ושאל כל שאלה.",
+    href: "/ask",
     color: "text-slate-700",
     bg: "bg-slate-100",
   },
@@ -59,7 +59,7 @@ export default function JourneySection() {
         <Reveal className="text-center max-w-2xl mx-auto">
           <h2 className="t-display text-3xl text-slate-900 sm:text-4xl">איפה אתה נמצא בדרך?</h2>
           <p className="mt-4 text-lg text-slate-600">
-            לא משנה איפה אתה נמצא היום — אפשר להתחיל מכאן.
+            בחר את המצב שהכי מתאים לך כרגע.
           </p>
         </Reveal>
 

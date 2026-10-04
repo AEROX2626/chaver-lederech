@@ -37,7 +37,7 @@ export function useUserProgress() {
           loadFromLocal();
           return;
         }
-        currentUser = data?.user;
+        currentUser = data?.user || undefined;
       }
 
       if (currentUser) {

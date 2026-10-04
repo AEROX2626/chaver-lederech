@@ -2,12 +2,12 @@ import { BookHeart, MessageSquare, BookOpen, Flame, Footprints, Lightbulb } from
 import Reveal from "../Reveal";
 
 const NEEDS = [
-  { icon: BookHeart, label: "תפילה קצרה", href: "/daily/prayer" },
-  { icon: Flame, label: "מילה של חיזוק", href: "/daily/chizuk" },
-  { icon: MessageSquare, label: "תשובה לשאלה", href: "/qa" },
-  { icon: BookOpen, label: "סיפור מהחיים", href: "/stories" },
-  { icon: Lightbulb, label: "דבר תורה קצר", href: "/daily/torah" },
-  { icon: Footprints, label: "צעד קטן להיום", href: "/daily/step" },
+  { icon: BookHeart, label: "תפילה קצרה", href: "/daily" },
+  { icon: Flame, label: "מילה של חיזוק", href: "/daily" },
+  { icon: MessageSquare, label: "מאגר שאלות ותשובות", href: "/qa" },
+  { icon: BookOpen, label: "סיפורים אישיים", href: "/stories" },
+  { icon: Lightbulb, label: "דבר תורה קצר", href: "/daily" },
+  { icon: Footprints, label: "צעד קטן להיום", href: "/daily" },
 ];
 
 export default function QuickNeedsSection() {
@@ -15,9 +15,9 @@ export default function QuickNeedsSection() {
     <section className="py-20">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center">
         <Reveal>
-          <h2 className="t-display text-2xl text-slate-900 sm:text-3xl">מה אתה צריך עכשיו?</h2>
+          <h2 className="t-display text-2xl text-slate-900 sm:text-3xl">מה אתה מחפש עכשיו?</h2>
           <p className="mt-3 text-[15px] text-slate-500">
-            לפעמים לא צריך שיעור ארוך. לפעמים צריך מילה אחת בזמן הנכון.
+            לפעמים צריך רק קצה חוט.
           </p>
         </Reveal>
 
