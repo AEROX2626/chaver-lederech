@@ -10,14 +10,17 @@ export default function TrackViewer({ track }: { track: Track }) {
 
   if (!isLoaded) return <div className="py-20 text-center text-slate-400">טוען נתונים...</div>;
 
-  const isCurrentTrack = state.currentTrack === track.id;
-  
-  if (!isCurrentTrack) {
+  // Calculate progress
+  const completedCount = (state.completedDays[track.id] || []).length;
+  const isCompletedTrack = completedCount >= track.durationDays;
+  const hasStarted = completedCount > 0 || state.currentTrack === track.id;
+
+  if (!hasStarted) {
     return (
       <div className="text-center bg-white border border-slate-200 rounded-3xl p-10 max-w-2xl mx-auto shadow-sm">
         <h3 className="t-title text-2xl text-slate-900 mb-4">מוכן להתחיל?</h3>
         <p className="text-slate-600 mb-8 leading-relaxed">
-          זהו מסלול של {track.durationDays} ימים. כל יום תקבל צעד אחד קטן. בלי לחץ, פשוט להיות בתנועה.
+          זהו מסלול של {track.durationDays} ימים. בכל יום נשלח לך צעד קטן אחד. בלי עומס, רק רגע אחד לעצמך.
         </p>
         <button 
           onClick={() => startTrack(track.id)}
@@ -30,20 +33,17 @@ export default function TrackViewer({ track }: { track: Track }) {
     );
   }
 
-  // Calculate progress
-  const completedCount = (state.completedDays[track.id] || []).length;
   const progressPercent = Math.min(100, Math.round((completedCount / track.durationDays) * 100));
   
-  // The current active day to show
-  const activeDayNum = Math.min(track.durationDays, state.currentDay);
-  const activeDay = track.days.find(d => d.dayNumber === activeDayNum);
+  // The current active day is simply the next day after completed ones
+  const activeDayNum = Math.min(track.durationDays, completedCount + 1);
 
   return (
     <div className="max-w-3xl mx-auto">
       {/* Progress Header */}
       <div className="bg-white rounded-3xl border border-slate-200 p-8 shadow-sm mb-12">
         <div className="flex justify-between items-center mb-4">
-          <h3 className="font-bold text-slate-900">המסלול שלי</h3>
+          <h3 className="font-bold text-slate-900">ההתקדמות שלך</h3>
           <span className="text-sm font-medium text-slate-500">יום {activeDayNum} מתוך {track.durationDays}</span>
         </div>
         <div className="h-3 w-full bg-slate-100 rounded-full overflow-hidden">
@@ -53,7 +53,7 @@ export default function TrackViewer({ track }: { track: Track }) {
           />
         </div>
         <div className="mt-4 text-right">
-          <span className="text-sm font-semibold text-emerald-600">{progressPercent}% הושלמו</span>
+          <span className="text-sm font-semibold text-emerald-600">{progressPercent}% הושלם</span>
         </div>
       </div>
 
@@ -63,7 +63,7 @@ export default function TrackViewer({ track }: { track: Track }) {
 
         {track.days.map((day, idx) => {
           const isCompleted = isDayCompleted(track.id, day.dayNumber);
-          const isActive = day.dayNumber === activeDayNum;
+          const isActive = day.dayNumber === activeDayNum && !isCompletedTrack;
           const isLocked = day.dayNumber > activeDayNum;
 
           if (isLocked) return null; // Hide future days for simplicity as requested
@@ -81,7 +81,7 @@ export default function TrackViewer({ track }: { track: Track }) {
                     <p className="text-[15.5px] leading-relaxed text-slate-600 mb-8">{day.content}</p>
                     
                     <div className={`rounded-2xl border p-5 mb-6 ${isActive ? 'bg-rose-50/50 border-rose-100' : 'bg-white border-slate-100'}`}>
-                      <span className="block text-[11px] font-bold uppercase tracking-wide text-slate-400 mb-2">המשימה שלך:</span>
+                      <span className="block text-[11px] font-bold uppercase tracking-wide text-slate-400 mb-2">המשימה להיום:</span>
                       <p className="text-slate-800 font-medium">{day.action}</p>
                     </div>
 
@@ -96,7 +96,7 @@ export default function TrackViewer({ track }: { track: Track }) {
                     )}
                     {isCompleted && (
                       <div className="text-sm font-semibold text-emerald-600 flex items-center gap-1">
-                        <CheckCircle className="h-4 w-4" /> מעולה. הושלם בהצלחה.
+                        <CheckCircle className="h-4 w-4" /> מעולה. הצעד הושלם.
                       </div>
                     )}
                   </div>
@@ -107,7 +107,7 @@ export default function TrackViewer({ track }: { track: Track }) {
         })}
       </div>
       
-      {completedCount >= track.durationDays && (
+      {isCompletedTrack && (
         <Reveal delay={200} className="mt-16 text-center bg-emerald-50 border border-emerald-200 rounded-3xl p-10">
           <CheckCircle className="h-16 w-16 text-emerald-500 mx-auto mb-4" />
           <h2 className="t-title text-3xl text-emerald-900 mb-2">כל הכבוד!</h2>
