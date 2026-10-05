@@ -1,0 +1,1 @@
+const fs = require('fs'); const content = fs.readFileSync('src/data/tracks.ts', 'utf-8'); const start = content.indexOf('id: \"track-08\"'); const end = content.indexOf('completionMessage', start); console.log(content.substring(start, end));

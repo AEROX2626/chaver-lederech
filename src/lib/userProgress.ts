@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { supabase } from './supabaseClient';
+import { TRACKS_DB } from '@/data/tracks';
 
 export interface UserProgressState {
   currentTrack: string | null; // This will ALWAYS be the track slug for the UI
@@ -188,19 +189,37 @@ export function useUserProgress() {
       }
     }
 
-    const trackCompleted = state.completedDays[trackSlug] || [];
+    // Immutable array update
+    const trackCompleted = [...(state.completedDays[trackSlug] || [])];
     if (!trackCompleted.includes(dayNumber)) {
       trackCompleted.push(dayNumber);
     }
     
+    const newCompletedDays = {
+      ...state.completedDays,
+      [trackSlug]: trackCompleted
+    };
+
+    let nextCurrentTrack = isLastDay ? null : trackSlug;
+    let nextCurrentDay = isLastDay ? dayNumber : nextDay;
+
+    // If we just finished a track, try to find another active one
+    if (isLastDay) {
+      for (const slug of Object.keys(newCompletedDays)) {
+        const trackDef = TRACKS_DB[slug];
+        if (trackDef && newCompletedDays[slug].length < trackDef.durationDays) {
+          nextCurrentTrack = slug;
+          nextCurrentDay = newCompletedDays[slug].length + 1;
+          break;
+        }
+      }
+    }
+    
     const newState = {
       ...state,
-      completedDays: {
-        ...state.completedDays,
-        [trackSlug]: trackCompleted
-      },
-      currentDay: isLastDay ? dayNumber : nextDay,
-      currentTrack: isLastDay ? null : trackSlug
+      completedDays: newCompletedDays,
+      currentDay: nextCurrentDay,
+      currentTrack: nextCurrentTrack
     };
     
     setState(newState);

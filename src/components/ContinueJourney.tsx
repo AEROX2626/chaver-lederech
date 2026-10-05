@@ -17,7 +17,7 @@ export default function ContinueJourney() {
   const completedCount = (state.completedDays[track.id] || []).length;
   if (completedCount >= track.durationDays) return null; // Finished the track
 
-  const activeDayNum = Math.min(track.durationDays, state.currentDay);
+  const activeDayNum = Math.min(track.durationDays, completedCount + 1);
 
   return (
     <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 mt-12">
