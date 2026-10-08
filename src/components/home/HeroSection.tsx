@@ -8,6 +8,7 @@ import Link from "next/link";
 import { QA_DB } from "@/data/qa";
 import { GUIDES_DB } from "@/data/guides";
 import { TRACKS_DB } from "@/data/tracks";
+import DailyZmanim from "../DailyZmanim";
 
 const ALL_SEARCH_ITEMS = [
   ...Object.values(QA_DB).map(q => ({ id: q.id, title: q.title, type: 'שאלה', url: `/qa/${q.id}` })),
@@ -56,6 +57,7 @@ export default function HeroSection() {
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-3xl text-center">
+          <DailyZmanim />
           <Reveal>
             <h1 className="t-display text-4xl text-slate-900 sm:text-6xl lg:text-7xl">
               רוצה להתקרב לה׳?
