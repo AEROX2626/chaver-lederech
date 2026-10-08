@@ -2,14 +2,14 @@ import { Metadata } from "next";
 import { MessageCircle, ShieldCheck, Clock, Heart } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "שאל את הרב | חבר לדרך",
+  title: "שאל את הרב | מתחזקים",
   description: "יש לך שאלה בהלכה, באמונה או בחיים? שלח הודעה ורב יענה לך בוואטסאפ.",
 };
 
 export default function AskRabbiPage() {
   // Replace this with the actual number provided by the user
   const whatsappNumber = "972737860860"; 
-  const message = encodeURIComponent("שלום, הגעתי מאתר 'חבר לדרך' ויש לי שאלה:");
+  const message = encodeURIComponent("שלום, הגעתי מאתר 'מתחזקים' ויש לי שאלה:");
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${message}`;
 
   return (

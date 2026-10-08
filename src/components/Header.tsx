@@ -16,7 +16,7 @@ export default function Header() {
             </span>
             <span className="flex flex-col leading-none">
               <span className="text-[15px] font-bold tracking-tight text-slate-900">
-                חבר לדרך
+                מתחזקים
               </span>
               <span className="text-[10px] font-medium text-slate-500">
                 צעד קטן, כל יום
