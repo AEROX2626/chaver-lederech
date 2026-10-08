@@ -16,29 +16,28 @@ export default function Header() {
             </span>
             <span className="flex flex-col leading-none">
               <span className="text-[15px] font-bold tracking-tight text-slate-900">
-                מתחזקים
+                חבר לדרך
               </span>
               <span className="text-[10px] font-medium text-slate-500">
-                בצעד קטן, ביחד
+                צעד קטן, כל יום
               </span>
             </span>
           </a>
 
           <nav className="hidden items-center gap-1 md:flex">
             <a href="/start" className="rounded-lg px-3.5 py-2 text-[13.5px] font-medium text-slate-600 transition hover:bg-slate-50 hover:text-slate-900">התחלה</a>
-            <a href="/ask-rabbi" className="rounded-lg px-3.5 py-2 text-[13.5px] font-medium text-emerald-600 transition hover:bg-emerald-50 hover:text-emerald-700">שאל את הרב</a>
             <a href="/qa" className="rounded-lg px-3.5 py-2 text-[13.5px] font-medium text-slate-600 transition hover:bg-slate-50 hover:text-slate-900">שאלות ותשובות</a>
             <a href="/emuna" className="rounded-lg px-3.5 py-2 text-[13.5px] font-medium text-slate-600 transition hover:bg-slate-50 hover:text-slate-900">אמונה</a>
             <a href="/daily" className="rounded-lg px-3.5 py-2 text-[13.5px] font-medium text-slate-600 transition hover:bg-slate-50 hover:text-slate-900">ביום־יום</a>
-            <a href="/tracks" className="rounded-lg px-3.5 py-2 text-[13.5px] font-medium text-slate-600 transition hover:bg-slate-50 hover:text-slate-900">צעד צעד</a>
+            <a href="/tracks" className="rounded-lg px-3.5 py-2 text-[13.5px] font-medium text-slate-600 transition hover:bg-slate-50 hover:text-slate-900">מסלולים</a>
             <a href="/stories" className="rounded-lg px-3.5 py-2 text-[13.5px] font-medium text-slate-600 transition hover:bg-slate-50 hover:text-slate-900">סיפורים</a>
-            <a href="/help" className="rounded-lg px-3.5 py-2 text-[13.5px] font-medium text-slate-600 transition hover:bg-slate-50 hover:text-slate-900">עזרה אישית</a>
+            <a href="/help" className="rounded-lg px-3.5 py-2 text-[13.5px] font-medium text-slate-600 transition hover:bg-slate-50 hover:text-slate-900">מרכז תמיכה</a>
           </nav>
 
           <div className="flex items-center gap-2">
-            <a href="/ask" className="btn-primary hidden items-center gap-2 rounded-lg px-4 py-2 text-[13px] font-semibold sm:inline-flex">
-              <MessageCircle className="h-3.5 w-3.5" />
-              שאל שאלה
+            <a href="/ask-rabbi" className="hidden items-center gap-2 rounded-lg bg-[#25D366] text-white px-4 py-2 text-[13px] font-bold sm:inline-flex transition hover:bg-[#20bd5a] shadow-sm shadow-[#25D366]/20">
+              <MessageCircle className="h-4 w-4" />
+              שאל את הרב
             </a>
 
             <button onClick={() => setIsMobileNavOpen(!isMobileNavOpen)} aria-label="תפריט" aria-expanded={isMobileNavOpen} className="grid h-9 w-9 place-items-center rounded-lg border border-slate-200 text-slate-700 transition hover:bg-slate-50 md:hidden">
@@ -51,15 +50,14 @@ export default function Header() {
           <div className="border-t border-slate-200 bg-white md:hidden">
             <nav className="flex flex-col p-3">
               <a href="/start" onClick={() => setIsMobileNavOpen(false)} className="rounded-lg px-3 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-50">התחלה</a>
-              <a href="/ask-rabbi" onClick={() => setIsMobileNavOpen(false)} className="rounded-lg px-3 py-3 text-sm font-medium text-emerald-600 transition hover:bg-emerald-50">שאל את הרב</a>
               <a href="/qa" onClick={() => setIsMobileNavOpen(false)} className="rounded-lg px-3 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-50">שאלות ותשובות</a>
               <a href="/emuna" onClick={() => setIsMobileNavOpen(false)} className="rounded-lg px-3 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-50">אמונה</a>
               <a href="/daily" onClick={() => setIsMobileNavOpen(false)} className="rounded-lg px-3 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-50">ביום־יום</a>
-              <a href="/tracks" onClick={() => setIsMobileNavOpen(false)} className="rounded-lg px-3 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-50">צעד צעד</a>
-              <a href="/stories" onClick={() => setIsMobileNavOpen(false)} className="rounded-lg px-3 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-50">סיפורים וחיזוק</a>
-              <a href="/help" onClick={() => setIsMobileNavOpen(false)} className="rounded-lg px-3 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-50">עזרה אישית</a>
-              <a href="/ask" onClick={() => setIsMobileNavOpen(false)} className="mt-2 inline-flex items-center justify-center gap-2 rounded-lg bg-slate-900 px-4 py-3 text-sm font-semibold text-white">
-                <MessageCircle className="h-4 w-4" /> שאל שאלה
+              <a href="/tracks" onClick={() => setIsMobileNavOpen(false)} className="rounded-lg px-3 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-50">מסלולים</a>
+              <a href="/stories" onClick={() => setIsMobileNavOpen(false)} className="rounded-lg px-3 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-50">סיפורים מהשטח</a>
+              <a href="/help" onClick={() => setIsMobileNavOpen(false)} className="rounded-lg px-3 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-50">מרכז תמיכה</a>
+              <a href="/ask-rabbi" onClick={() => setIsMobileNavOpen(false)} className="mt-2 inline-flex items-center justify-center gap-2 rounded-lg bg-[#25D366] text-white px-4 py-3 text-sm font-bold shadow-sm shadow-[#25D366]/20">
+                <MessageCircle className="h-5 w-5" /> שאל את הרב בווטסאפ
               </a>
             </nav>
           </div>
