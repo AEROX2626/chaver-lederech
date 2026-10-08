@@ -1,20 +1,48 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Calendar as CalendarIcon, Sunset, Flame } from "lucide-react";
+import { Calendar as CalendarIcon, Sunset, Flame, MapPin } from "lucide-react";
+
+const CITIES = [
+  { id: "281184", name: "ירושלים" },
+  { id: "293397", name: "תל אביב" },
+  { id: "294801", name: "חיפה" },
+  { id: "295530", name: "באר שבע" },
+  { id: "294071", name: "נתניה" },
+  { id: "293337", name: "צפת" },
+  { id: "295277", name: "אילת" }
+];
 
 export default function DailyZmanim() {
   const [hebrewDate, setHebrewDate] = useState<string>("טוען...");
   const [parasha, setParasha] = useState<string>("");
   const [sunset, setSunset] = useState<string>("");
   const [candles, setCandles] = useState<string>("");
+  const [selectedCity, setSelectedCity] = useState<string>("281184"); // default Jerusalem
   const [isLoaded, setIsLoaded] = useState(false);
+
+  // Load saved city from local storage
+  useEffect(() => {
+    const savedCity = localStorage.getItem("zmanim-city");
+    if (savedCity && CITIES.find(c => c.id === savedCity)) {
+      setSelectedCity(savedCity);
+    }
+  }, []);
+
+  const handleCityChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const cityId = e.target.value;
+    setSelectedCity(cityId);
+    localStorage.setItem("zmanim-city", cityId);
+  };
 
   useEffect(() => {
     async function fetchZmanim() {
       try {
-        // Fetch Hebrew Events for Israel
-        const hebEventsRes = await fetch("https://www.hebcal.com/converter?cfg=json&date=now&g=on&m=50&lg=h");
+        const today = new Date();
+        const ymd = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0');
+
+        // Fetch Hebrew Date
+        const hebEventsRes = await fetch(`https://www.hebcal.com/converter?cfg=json&date=${ymd}&g=on&lg=h`);
         const hebEventsData = await hebEventsRes.json();
         
         if (hebEventsData.hebrew) {
@@ -22,12 +50,12 @@ export default function DailyZmanim() {
         }
 
         if (hebEventsData.events) {
-          const hebParasha = hebEventsData.events.find((e: string) => e.includes("פרשת") || e.includes("חג"));
+          const hebParasha = hebEventsData.events.find((e: string) => e.includes("פרשת") || e.includes("חג") || e.includes("שבת"));
           if (hebParasha) setParasha(hebParasha);
         }
 
-        // Fetch general Zmanim for Jerusalem
-        const zmanimRes = await fetch("https://www.hebcal.com/zmanim?cfg=json&geonameid=281184");
+        // Fetch general Zmanim
+        const zmanimRes = await fetch(`https://www.hebcal.com/zmanim?cfg=json&geonameid=${selectedCity}&date=${ymd}`);
         const zmanimData = await zmanimRes.json();
         
         if (zmanimData.times && zmanimData.times.sunset) {
@@ -36,9 +64,9 @@ export default function DailyZmanim() {
         }
 
         // If today is Thursday or Friday, fetch Shabbat times
-        const dayOfWeek = new Date().getDay();
-        if (dayOfWeek === 4 || dayOfWeek === 5) { // 4 = Thursday, 5 = Friday
-          const shabbatRes = await fetch("https://www.hebcal.com/shabbat?cfg=json&geonameid=281184&M=on&lg=h");
+        const dayOfWeek = today.getDay();
+        if (dayOfWeek === 4 || dayOfWeek === 5) { 
+          const shabbatRes = await fetch(`https://www.hebcal.com/shabbat?cfg=json&geonameid=${selectedCity}&M=on&lg=h`);
           const shabbatData = await shabbatRes.json();
           
           if (shabbatData.items) {
@@ -48,6 +76,8 @@ export default function DailyZmanim() {
               setCandles(candleDate.toLocaleTimeString("he-IL", { hour: "2-digit", minute: "2-digit" }));
             }
           }
+        } else {
+          setCandles(""); // Clear if it's not Thu/Fri (e.g. if city changed on another day)
         }
 
         setIsLoaded(true);
@@ -56,40 +86,53 @@ export default function DailyZmanim() {
       }
     }
     fetchZmanim();
-  }, []);
+  }, [selectedCity]); // Re-fetch if city changes
 
-  if (!isLoaded) return null;
-
+  // Always render something to prevent hydration mismatch layout shifts, 
+  // but keep it transparent until loaded
   return (
-    <div className="mx-auto max-w-fit mb-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
-      <div className="inline-flex flex-wrap items-center justify-center gap-3 sm:gap-6 rounded-full border border-slate-200/60 bg-white/50 px-5 py-2 shadow-sm backdrop-blur-md">
+    <div className={`mx-auto max-w-fit mb-8 transition-opacity duration-700 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
+      <div className="inline-flex flex-wrap items-center justify-center gap-3 sm:gap-6 rounded-3xl sm:rounded-full border border-slate-200/60 bg-white/60 px-5 py-2.5 shadow-sm backdrop-blur-md">
         
-        <div className="flex items-center gap-2 text-[13px] sm:text-sm font-medium text-slate-700">
+        <div className="flex items-center gap-2 text-[13.5px] font-medium text-slate-700">
           <CalendarIcon className="h-4 w-4 text-sky-600" />
           <span>{hebrewDate}</span>
           {parasha && <span className="text-slate-300 hidden sm:inline">•</span>}
           {parasha && <span className="font-bold text-sky-800">{parasha}</span>}
         </div>
         
-        {sunset && !candles && (
-          <>
-            <div className="hidden sm:block h-4 w-px bg-slate-200"></div>
-            <div className="flex items-center gap-2 text-[13px] sm:text-sm font-medium text-slate-700">
-              <Sunset className="h-4 w-4 text-orange-500" />
-              <span>שקיעה: {sunset}</span>
-            </div>
-          </>
-        )}
+        <div className="hidden sm:block h-4 w-px bg-slate-200"></div>
+        
+        <div className="flex items-center gap-4 text-[13.5px] font-medium text-slate-700 bg-slate-100/50 rounded-full px-2 py-1">
+          <div className="flex items-center gap-1.5 text-slate-500 relative group">
+            <MapPin className="h-3.5 w-3.5" />
+            <select 
+              value={selectedCity} 
+              onChange={handleCityChange}
+              className="bg-transparent font-medium outline-none cursor-pointer appearance-none text-slate-600 hover:text-slate-900 transition-colors pr-1 pl-4"
+              aria-label="בחר עיר"
+            >
+              {CITIES.map(c => (
+                <option key={c.id} value={c.id}>{c.name}</option>
+              ))}
+            </select>
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="absolute left-0 pointer-events-none text-slate-400 group-hover:text-slate-600 transition-colors"><path d="m6 9 6 6 6-6"/></svg>
+          </div>
 
-        {candles && (
-          <>
-            <div className="hidden sm:block h-4 w-px bg-slate-200"></div>
-            <div className="flex items-center gap-2 text-[13px] sm:text-sm font-bold text-slate-800">
+          <div className="h-3 w-px bg-slate-300"></div>
+
+          {candles ? (
+            <div className="flex items-center gap-1.5 font-bold text-slate-800">
               <Flame className="h-4 w-4 text-amber-500 fill-amber-500" />
               <span>כניסת שבת: {candles}</span>
             </div>
-          </>
-        )}
+          ) : (
+            <div className="flex items-center gap-1.5">
+              <Sunset className="h-4 w-4 text-orange-500" />
+              <span>שקיעה: {sunset}</span>
+            </div>
+          )}
+        </div>
 
       </div>
     </div>
