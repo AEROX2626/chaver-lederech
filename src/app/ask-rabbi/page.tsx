@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function AskRabbiPage() {
   // Replace this with the actual number provided by the user
-  const whatsappNumber = "972500000000"; 
+  const whatsappNumber = "972737860860"; 
   const message = encodeURIComponent("שלום, הגעתי מאתר 'חבר לדרך' ויש לי שאלה:");
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${message}`;
 
