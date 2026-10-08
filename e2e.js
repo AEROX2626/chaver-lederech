@@ -71,7 +71,7 @@ const { chromium } = require('playwright');
     }
     
     // Verify it says "יום 2"
-    const activeDayText = await page.textContent('text=יום 2 מתוך');
+    const activeDayText = await page.textContent('text=יום 2 במסלול');
     if (activeDayText) {
         console.log("SUCCESS: Continue Journey correctly shows Day 2 for Track A!");
     } else {

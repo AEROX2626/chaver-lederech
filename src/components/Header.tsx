@@ -26,6 +26,7 @@ export default function Header() {
 
           <nav className="hidden items-center gap-1 md:flex">
             <a href="/start" className="rounded-lg px-3.5 py-2 text-[13.5px] font-medium text-slate-600 transition hover:bg-slate-50 hover:text-slate-900">התחלה</a>
+            <a href="/ask-rabbi" className="rounded-lg px-3.5 py-2 text-[13.5px] font-medium text-emerald-600 transition hover:bg-emerald-50 hover:text-emerald-700">שאל את הרב</a>
             <a href="/qa" className="rounded-lg px-3.5 py-2 text-[13.5px] font-medium text-slate-600 transition hover:bg-slate-50 hover:text-slate-900">שאלות ותשובות</a>
             <a href="/emuna" className="rounded-lg px-3.5 py-2 text-[13.5px] font-medium text-slate-600 transition hover:bg-slate-50 hover:text-slate-900">אמונה</a>
             <a href="/daily" className="rounded-lg px-3.5 py-2 text-[13.5px] font-medium text-slate-600 transition hover:bg-slate-50 hover:text-slate-900">ביום־יום</a>
@@ -50,6 +51,7 @@ export default function Header() {
           <div className="border-t border-slate-200 bg-white md:hidden">
             <nav className="flex flex-col p-3">
               <a href="/start" onClick={() => setIsMobileNavOpen(false)} className="rounded-lg px-3 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-50">התחלה</a>
+              <a href="/ask-rabbi" onClick={() => setIsMobileNavOpen(false)} className="rounded-lg px-3 py-3 text-sm font-medium text-emerald-600 transition hover:bg-emerald-50">שאל את הרב</a>
               <a href="/qa" onClick={() => setIsMobileNavOpen(false)} className="rounded-lg px-3 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-50">שאלות ותשובות</a>
               <a href="/emuna" onClick={() => setIsMobileNavOpen(false)} className="rounded-lg px-3 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-50">אמונה</a>
               <a href="/daily" onClick={() => setIsMobileNavOpen(false)} className="rounded-lg px-3 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-50">ביום־יום</a>
