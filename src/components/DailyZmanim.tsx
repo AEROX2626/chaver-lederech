@@ -11,20 +11,25 @@ export default function DailyZmanim() {
   const [parasha, setParasha] = useState<string>("");
   const [sunset, setSunset] = useState<string>("");
   const [candles, setCandles] = useState<string>("");
-  const [selectedCity, setSelectedCity] = useState<string>("281184"); // default Jerusalem
+  
+  // We now store both ID and Name
+  const [selectedCity, setSelectedCity] = useState({ id: "281184", name: "ירושלים" });
   const [isLoaded, setIsLoaded] = useState(false);
 
   // Load saved city from local storage
   useEffect(() => {
-    const savedCity = localStorage.getItem("zmanim-city");
-    if (savedCity) {
-      setSelectedCity(savedCity);
+    const saved = localStorage.getItem("zmanim-city-obj");
+    if (saved) {
+      try {
+        setSelectedCity(JSON.parse(saved));
+      } catch(e) {}
     }
   }, []);
 
-  const handleCityChange = (cityId: string) => {
-    setSelectedCity(cityId);
-    localStorage.setItem("zmanim-city", cityId);
+  const handleCityChange = (cityId: string, cityName: string) => {
+    const newCity = { id: cityId, name: cityName };
+    setSelectedCity(newCity);
+    localStorage.setItem("zmanim-city-obj", JSON.stringify(newCity));
   };
 
   useEffect(() => {
@@ -47,7 +52,7 @@ export default function DailyZmanim() {
         }
 
         // Fetch general Zmanim
-        const zmanimRes = await fetch(`https://www.hebcal.com/zmanim?cfg=json&geonameid=${selectedCity}&date=${ymd}`);
+        const zmanimRes = await fetch(`https://www.hebcal.com/zmanim?cfg=json&geonameid=${selectedCity.id}&date=${ymd}`);
         const zmanimData = await zmanimRes.json();
         
         if (zmanimData.times && zmanimData.times.sunset) {
@@ -58,7 +63,7 @@ export default function DailyZmanim() {
         // If today is Thursday or Friday, fetch Shabbat times
         const dayOfWeek = today.getDay();
         if (dayOfWeek === 4 || dayOfWeek === 5) { 
-          const shabbatRes = await fetch(`https://www.hebcal.com/shabbat?cfg=json&geonameid=${selectedCity}&M=on&lg=h`);
+          const shabbatRes = await fetch(`https://www.hebcal.com/shabbat?cfg=json&geonameid=${selectedCity.id}&M=on&lg=h`);
           const shabbatData = await shabbatRes.json();
           
           if (shabbatData.items) {
@@ -96,7 +101,7 @@ export default function DailyZmanim() {
         <div className="hidden sm:block h-4 w-px bg-slate-200"></div>
         
         <div className="flex items-center gap-4 text-[13.5px] font-medium text-slate-700 bg-slate-100/50 rounded-full px-2 py-1">
-          <CitySelector selectedId={selectedCity} onChange={handleCityChange} />
+          <CitySelector selectedCity={selectedCity} onChange={handleCityChange} />
 
           <div className="h-3 w-px bg-slate-300"></div>
 
