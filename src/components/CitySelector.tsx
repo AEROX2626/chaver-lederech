@@ -40,12 +40,18 @@ export function CitySelector({ selectedCity, onChange }: CitySelectorProps) {
         { id: "281184", name: "ירושלים" },
         { id: "293397", name: "תל אביב" },
         { id: "294801", name: "חיפה" },
-        { id: "295530", name: "באר שבע" },
-        { id: "282926", name: "מודיעין" },
-        { id: "294071", name: "נתניה" },
         { id: "293703", name: "ראשון לציון" },
+        { id: "293807", name: "פתח תקווה" },
+        { id: "295629", name: "אשדוד" },
+        { id: "294071", name: "נתניה" },
+        { id: "295530", name: "באר שבע" },
+        { id: "294904", name: "חולון" },
         { id: "295224", name: "בית שמש" },
-        { id: "295277", name: "אילת" }
+        { id: "293721", name: "רמת גן" },
+        { id: "295632", name: "אשקלון" },
+        { id: "293503", name: "רחובות" },
+        { id: "295277", name: "אילת" },
+        { id: "293308", name: "טירת כרמל" }
       ]);
       return;
     }
@@ -53,7 +59,7 @@ export function CitySelector({ selectedCity, onChange }: CitySelectorProps) {
     const timer = setTimeout(async () => {
       setIsLoading(true);
       try {
-        const res = await fetch(`https://www.hebcal.com/complete?q=${encodeURIComponent(search)}`);
+        const res = await fetch(`/api/cities?q=${encodeURIComponent(search)}`);
         const data = await res.json();
         
         if (Array.isArray(data)) {
