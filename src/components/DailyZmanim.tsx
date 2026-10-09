@@ -1,17 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Calendar as CalendarIcon, Sunset, Flame, MapPin } from "lucide-react";
+import { Calendar as CalendarIcon, Sunset, Flame } from "lucide-react";
+import { CitySelector } from "./CitySelector";
 
-const CITIES = [
-  { id: "281184", name: "ירושלים" },
-  { id: "293397", name: "תל אביב" },
-  { id: "294801", name: "חיפה" },
-  { id: "295530", name: "באר שבע" },
-  { id: "294071", name: "נתניה" },
-  { id: "293337", name: "צפת" },
-  { id: "295277", name: "אילת" }
-];
+// Removed CITIES array from here as it's now in CitySelector
 
 export default function DailyZmanim() {
   const [hebrewDate, setHebrewDate] = useState<string>("טוען...");
@@ -24,13 +17,12 @@ export default function DailyZmanim() {
   // Load saved city from local storage
   useEffect(() => {
     const savedCity = localStorage.getItem("zmanim-city");
-    if (savedCity && CITIES.find(c => c.id === savedCity)) {
+    if (savedCity) {
       setSelectedCity(savedCity);
     }
   }, []);
 
-  const handleCityChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const cityId = e.target.value;
+  const handleCityChange = (cityId: string) => {
     setSelectedCity(cityId);
     localStorage.setItem("zmanim-city", cityId);
   };
@@ -104,20 +96,7 @@ export default function DailyZmanim() {
         <div className="hidden sm:block h-4 w-px bg-slate-200"></div>
         
         <div className="flex items-center gap-4 text-[13.5px] font-medium text-slate-700 bg-slate-100/50 rounded-full px-2 py-1">
-          <div className="flex items-center gap-1.5 text-slate-500 relative group">
-            <MapPin className="h-3.5 w-3.5" />
-            <select 
-              value={selectedCity} 
-              onChange={handleCityChange}
-              className="bg-transparent font-medium outline-none cursor-pointer appearance-none text-slate-600 hover:text-slate-900 transition-colors pr-1 pl-4"
-              aria-label="בחר עיר"
-            >
-              {CITIES.map(c => (
-                <option key={c.id} value={c.id}>{c.name}</option>
-              ))}
-            </select>
-            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="absolute left-0 pointer-events-none text-slate-400 group-hover:text-slate-600 transition-colors"><path d="m6 9 6 6 6-6"/></svg>
-          </div>
+          <CitySelector selectedId={selectedCity} onChange={handleCityChange} />
 
           <div className="h-3 w-px bg-slate-300"></div>
 
