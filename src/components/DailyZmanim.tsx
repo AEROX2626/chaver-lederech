@@ -83,7 +83,7 @@ export default function DailyZmanim() {
   // Always render something to prevent hydration mismatch layout shifts, 
   // but keep it transparent until loaded
   return (
-    <div className={`mx-auto max-w-fit mb-8 transition-opacity duration-700 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
+    <div className={`relative z-50 mx-auto max-w-fit mb-8 transition-opacity duration-700 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
       <div className="inline-flex flex-wrap items-center justify-center gap-3 sm:gap-6 rounded-3xl sm:rounded-full border border-slate-200/60 bg-white/60 px-5 py-2.5 shadow-sm backdrop-blur-md">
         
         <div className="flex items-center gap-2 text-[13.5px] font-medium text-slate-700">
